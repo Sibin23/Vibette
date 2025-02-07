@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:vibette/core/colors.dart';
-import 'package:vibette/presentation/screens/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/router.dart';
+import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -11,26 +14,38 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      debugShowCheckedModeBanner: false,
-      title: 'Vibette',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: white,
-        appBarTheme: const AppBarTheme(
-          color: white,
-          iconTheme: IconThemeData(
-            color: black,
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => PasswordVisibilityCubit(),
           ),
-          surfaceTintColor: white,
-          titleTextStyle: TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 20, color: black),
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData.dark(),
-      home: const SplashScreen(),
-    );
+          BlocProvider(create: (context) => ConfirmPasswordVisibilityCubit()),
+        ],
+        child: MaterialApp.router(
+          themeMode: ThemeMode.system,
+          debugShowCheckedModeBanner: false,
+          title: 'Vibette',
+          theme: ThemeData(
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: white,
+              appBarTheme: const AppBarTheme(
+                color: white,
+                iconTheme: IconThemeData(
+                  color: black,
+                ),
+                surfaceTintColor: white,
+                titleTextStyle: TextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 20, color: black),
+              ),
+              useMaterial3: true,
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: {
+                  TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                },
+              )),
+          darkTheme: ThemeData.dark(),
+          routerConfig: router,
+        ));
   }
 }

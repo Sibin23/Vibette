@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vibette/core/colors.dart';
+import 'package:vibette/application/core/colors.dart';
 
 class TextFormFieldAuth extends StatelessWidget {
   final TextEditingController controller;

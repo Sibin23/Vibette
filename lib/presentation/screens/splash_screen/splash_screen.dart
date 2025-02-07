@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:vibette/core/colors.dart';
-import 'package:vibette/core/constants/constants.dart';
-import 'package:vibette/presentation/screens/login_screen/login_screen.dart';
+import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/application/core/constants/router.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,8 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        GoRouter.of(context).pushReplacement(signIn);
+      });
     });
   }
 

@@ -1,75 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/core/colors.dart';
-import 'package:vibette/core/constants/constants.dart';
-import 'package:vibette/presentation/screens/login_screen/widgets/textformfield.dart';
+import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/application/core/constants/router.dart';
+import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
+import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
+import 'package:vibette/presentation/screens/login_screen/widgets/vibette_logo.dart';
+import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
+import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
+import 'package:vibette/presentation/screens/widgets/validators.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
-    final email = TextEditingController();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final size = MediaQuery.of(context).size;
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
-      backgroundColor:
-          Theme.of(context).brightness == Brightness.light ? white : black,
+      backgroundColor: appTheme(context),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 120,
-              width: 120,
-              decoration: BoxDecoration(
-                color: grey300,
-                borderRadius: BorderRadius.circular(8),
-                gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromRGBO(159, 2, 94, 1),
-                      Color.fromRGBO(249, 200, 41, 1)
-                    ]),
-              ),
-              child: Center(
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 5,
-                      left: 20,
-                      child: ClipOval(
-                        clipBehavior: Clip.hardEdge,
-                        child: Container(
-                          alignment: Alignment.bottomRight,
-                          height: 25,
-                          width: 30,
-                          decoration: const BoxDecoration(
-                            color: white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 3, right: 3),
-                            child: Container(
-                              height: 12,
-                              width: 12,
-                              decoration: const BoxDecoration(
-                                  color: black, shape: BoxShape.circle),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'V',
-                      style:
-                          GoogleFonts.fondamento(color: white, fontSize: 100),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            h40,
+            const VibetteLogo(),
             Text(
               'Vibette',
+              textAlign: TextAlign.center,
               style: GoogleFonts.diphylleia(
                   color: Theme.of(context).brightness == Brightness.light
                       ? black
@@ -78,19 +39,101 @@ class LoginScreen extends StatelessWidget {
                   fontWeight: FontWeight.w500),
             ),
             h30,
-            TextFormFieldAuth(
-              controller: email,
-              hintText: 'Email',
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: SizedBox(
+                width: size.width,
+                child: Text(
+                  textAlign: TextAlign.start,
+                  'Getting Started !',
+                  style: Theme.of(context).brightness == Brightness.dark
+                      ? titleTextWhite
+                      : titleTextBlack,
+                ),
+              ),
             ),
-            h10,
-            TextFormFieldAuth(
-              controller: email,
-              hintText: 'Email',
+            h20,
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextFieldAuthentication(
+                      prefixIcon: Icons.email_outlined,
+                      controller: emailController,
+                      hintText: 'abc@gmail.com',
+                      keyboardType: TextInputType.emailAddress,
+                      validator: validateEmail,
+                    ),
+                    h10,
+                    // PasswordAuthentication(
+                    //     voidCallback: () {
+                    //       context
+                    //           .read<PasswordVisibilityCubit>()
+                    //           .toggleVisibility();
+                    //     },
+                    //     prefixIcon: Icons.password,
+                    //     controller: passwordController,
+                    //     validator: validatePassword,
+                    //     hintText: 'Password',
+                    //     keyboardType: TextInputType.text),
+                    h20,
+                    GestureDetector(
+                      onTap: () => context.push(forgotPassword),
+                      child: Text(
+                        'Forgot Password?',
+                        style: appThemeText,
+                      ),
+                    ),
+                    h20,
+                    AppThemeButton(
+                        voidCallback: () {
+                          if (formKey.currentState!.validate()) {
+                            context.pushReplacementNamed(homeScreen);
+                          }
+                        },
+                        buttonText: 'Sign In',
+                        size: size),
+                  ],
+                ),
+              ),
             ),
-            h10,
-            TextFormFieldAuth(
-              controller: email,
-              hintText: 'Email',
+            h20,
+            Text(
+              textAlign: TextAlign.center,
+              'Or Continue with',
+              style: Theme.of(context).brightness == Brightness.dark
+                  ? subtitleNormalW
+                  : subtitleNormalB,
+            ),
+            h20,
+            InkWell(
+              onTap: () {},
+              child: Image.asset(
+                googleLogo,
+                width: 50,
+                height: 50,
+              ),
+            ),
+            h20,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Don\'t have an account?',
+                    style: Theme.of(context).brightness == Brightness.dark
+                        ? subtitleNormalW
+                        : subtitleNormalB),
+                w10,
+                InkWell(
+                  onTap: () => context.push(signUp),
+                  child: Text(
+                    'Sign Up',
+                    style: appThemeText,
+                  ),
+                ),
+              ],
             )
           ],
         ),
