@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
-import 'package:vibette/presentation/screens/widgets/validators.dart';
 
 class TextFieldAuthentication extends StatelessWidget {
   const TextFieldAuthentication(
@@ -47,7 +46,7 @@ class TextFieldAuthentication extends StatelessWidget {
           color: textfieldTextTheme(context),
         ),
       ),
-      validator: validateEmail,
+      validator: validator,
     );
   }
 }
@@ -75,6 +74,7 @@ class PasswordAuthentication extends StatelessWidget {
     return BlocBuilder<PasswordVisibilityCubit, PasswordVisibilityState>(
       builder: (context, state) {
         return TextFormField(
+          
           obscureText: state.isObscured,
           cursorWidth: 2,
           controller: controller,
@@ -98,13 +98,13 @@ class PasswordAuthentication extends StatelessWidget {
                 fontSize: 20,
                 color: textfieldTextTheme(context),
               ),
-              suffixIcon: GestureDetector(
-                onTap: voidCallback,
-                child: Icon(
+              suffixIcon: IconButton(
+                onPressed: voidCallback,
+                icon: Icon(
                     state.isObscured ? Icons.visibility : Icons.visibility_off),
               ),
               counterStyle: GoogleFonts.roboto(color: Colors.red)),
-          validator: validatePassword,
+          validator: validator,
         );
       },
     );
@@ -158,13 +158,13 @@ class ConfirmPasswordAuthentication extends StatelessWidget {
                 fontSize: 20,
                 color: textfieldTextTheme(context),
               ),
-              suffixIcon: GestureDetector(
-                onTap: voidCallback,
-                child: Icon(
+              suffixIcon: IconButton(
+                onPressed: voidCallback,
+                icon: Icon(
                     state.isObscured ? Icons.visibility : Icons.visibility_off),
               ),
               counterStyle: GoogleFonts.roboto(color: Colors.red)),
-          validator: validatePassword,
+          validator: validator,
         );
       },
     );

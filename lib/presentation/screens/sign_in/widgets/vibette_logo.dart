@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 
 class VibetteLogo extends StatelessWidget {
   const VibetteLogo({

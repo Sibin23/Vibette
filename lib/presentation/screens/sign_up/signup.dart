@@ -2,25 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
-import 'package:vibette/presentation/screens/login_screen/login_screen.dart';
-import 'package:vibette/presentation/screens/login_screen/widgets/vibette_logo.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+import '../sign_in/widgets/vibette_logo.dart';
+
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final phoneController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final confirmPasswordController = TextEditingController();
-    final phoneController = TextEditingController();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: appTheme(context),

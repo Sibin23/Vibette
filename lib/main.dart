@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
 
@@ -45,7 +45,9 @@ class MyApp extends StatelessWidget {
                 },
               )),
           darkTheme: ThemeData.dark(),
-          routerConfig: router,
+          routerConfig: AppRouter().router,
+          // routeInformationParser: AppRouter().router.routeInformationParser,
+          // routerDelegate: AppRouter().router.routerDelegate,
         ));
   }
 }

@@ -2,24 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/application/core/constants/router.dart';
+import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
-import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
-import 'package:vibette/presentation/screens/login_screen/widgets/vibette_logo.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+import 'widgets/vibette_logo.dart';
+
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
     final size = MediaQuery.of(context).size;
-    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: appTheme(context),
       body: SafeArea(
@@ -68,20 +76,20 @@ class LoginScreen extends StatelessWidget {
                       validator: validateEmail,
                     ),
                     h10,
-                    // PasswordAuthentication(
-                    //     voidCallback: () {
-                    //       context
-                    //           .read<PasswordVisibilityCubit>()
-                    //           .toggleVisibility();
-                    //     },
-                    //     prefixIcon: Icons.password,
-                    //     controller: passwordController,
-                    //     validator: validatePassword,
-                    //     hintText: 'Password',
-                    //     keyboardType: TextInputType.text),
+                    PasswordAuthentication(
+                        voidCallback: () {
+                          context
+                              .read<PasswordVisibilityCubit>()
+                              .toggleVisibility();
+                        },
+                        prefixIcon: Icons.password,
+                        controller: passwordController,
+                        validator: validatePassword,
+                        hintText: 'Password',
+                        keyboardType: TextInputType.text),
                     h20,
                     GestureDetector(
-                      onTap: () => context.push(forgotPassword),
+                      onTap: () => context.push(RouterConstants.forgotPassword),
                       child: Text(
                         'Forgot Password?',
                         style: appThemeText,
@@ -89,10 +97,13 @@ class LoginScreen extends StatelessWidget {
                     ),
                     h20,
                     AppThemeButton(
-                        voidCallback: () {
-                          if (formKey.currentState!.validate()) {
-                            context.pushReplacementNamed(homeScreen);
-                          }
+                        voidCallback: () async {
+                          //if (formKey.currentState!.validate()) {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setBool('isLoggedIn', true);
+                          context.goNamed(RouterConstants.basePage);
+                          //  }
                         },
                         buttonText: 'Sign In',
                         size: size),
@@ -127,7 +138,7 @@ class LoginScreen extends StatelessWidget {
                         : subtitleNormalB),
                 w10,
                 InkWell(
-                  onTap: () => context.push(signUp),
+                  onTap: () => context.push(RouterConstants.SignUpScreen),
                   child: Text(
                     'Sign Up',
                     style: appThemeText,

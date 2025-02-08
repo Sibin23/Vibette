@@ -1,7 +1,7 @@
 // height
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 
 const h10 = SizedBox(height: 10);
 const h20 = SizedBox(height: 20);
@@ -25,8 +25,8 @@ final appThemeText = GoogleFonts.roboto(
     color: appThemePrimary, fontSize: 18, fontWeight: FontWeight.w500);
 final titleTextWhite = GoogleFonts.roboto(color: white, fontSize: 28);
 final titleTextBlack = GoogleFonts.roboto(color: black, fontSize: 28);
-final title2W = GoogleFonts.roboto(color: white, fontSize: 24);
-final title2B = GoogleFonts.roboto(color: black, fontSize: 24);
+final title2W = GoogleFonts.roboto(color: white, fontSize: 22);
+final title2B = GoogleFonts.roboto(color: black, fontSize: 22);
 final subtitleNormalW = GoogleFonts.roboto(color: white, fontSize: 18);
 final subtitleNormalB = GoogleFonts.roboto(color: black, fontSize: 18);
 

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/application/core/constants/router.dart';
+import 'package:vibette/application/core/constants/router_constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,9 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        GoRouter.of(context).pushReplacement(signIn);
-      });
+      _checkLogin();
     });
   }
 
@@ -101,7 +100,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       Text(
                         'Vibette',
                         style: GoogleFonts.diphylleia(
-                            color: Colors.black,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? white
+                                    : black,
                             fontSize: 35,
                             fontWeight: FontWeight.w500),
                       ),
@@ -125,5 +127,16 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
           ),
         ));
+  }
+
+  Future<void> _checkLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false; // Default to false
+
+    if (isLoggedIn) {
+      context.goNamed(RouterConstants.basePage);
+    } else {
+      context.goNamed(RouterConstants.signIn);
+    }
   }
 }

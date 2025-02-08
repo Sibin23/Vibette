@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 
 class AppThemeButton extends StatelessWidget {
   const AppThemeButton({
     super.key,
-    required this.size, required this.voidCallback, required this.buttonText,
+    required this.size,
+    required this.voidCallback,
+    required this.buttonText,
   });
-final VoidCallback voidCallback;
+  final VoidCallback voidCallback;
   final Size size;
-final String buttonText;
+  final String buttonText;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         voidCallback();
       },
       child: Container(

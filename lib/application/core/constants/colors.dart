@@ -13,7 +13,6 @@ const lightgreyauth = Color.fromARGB(255, 238, 237, 237);
 const darkgreymain = Color.fromARGB(255, 21, 21, 22);
 final darkbg = Colors.grey.shade900;
 const grey = Colors.grey;
-const buttonclr = Color.fromARGB(255, 7, 115, 94);
 const lightgrey = Color.fromARGB(255, 210, 210, 210);
 
 textfieldTheme(BuildContext context) {

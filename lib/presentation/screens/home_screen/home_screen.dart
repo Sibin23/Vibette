@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vibette/application/core/constants/colors.dart';
+import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -6,7 +8,15 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('HomeScreen')),
+      backgroundColor: appTheme(context),
+      body: SafeArea(
+        child: ListView(
+          children: const [
+            VibetteLogo(),
+            Text('Home Screen'),
+            ],
+        ),
+      ),
     );
   }
 }

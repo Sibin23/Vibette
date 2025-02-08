@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vibette/application/core/colors.dart';
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 
 class ErrorScreen extends StatelessWidget {

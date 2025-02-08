@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
+import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  final email = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -28,7 +32,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         backgroundColor: appTheme(context),
         centerTitle: true,
         title: Text(
-          'Forgot Password?',
+          'Reset Password',
           style: Theme.of(context).brightness == Brightness.dark
               ? title2W
               : title2B,
@@ -66,21 +70,36 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         : subtitleNormalB,
                   ),
                   h20,
-                  TextFieldAuthentication(
-                      prefixIcon: Icons.email_outlined,
-                      controller: email,
-                      validator: validateEmail,
-                      hintText: 'abc@gmail.com',
-                      keyboardType: TextInputType.emailAddress),
+                  PasswordAuthentication(
+                    prefixIcon: Icons.password_rounded,
+                    controller: passwordController,
+                    validator: validatePassword,
+                    hintText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    voidCallback: () => context
+                        .read<PasswordVisibilityCubit>()
+                        .toggleVisibility(),
+                  ),
+                  h10,
+                  ConfirmPasswordAuthentication(
+                    prefixIcon: Icons.password_rounded,
+                    controller: confirmPasswordController,
+                    validator: validatePassword,
+                    hintText: 'Confirm Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    voidCallback: () => context
+                        .read<ConfirmPasswordVisibilityCubit>()
+                        .toggleVisibility(),
+                  ),
                   h30,
                   AppThemeButton(
                       size: size,
                       voidCallback: () {
                         //if (formKey.currentState!.validate()) {
-                        context.push(RouterConstants.otpVerification);
+                        context.goNamed(RouterConstants.signIn);
                         //  }
                       },
-                      buttonText: 'Get OTP'),
+                      buttonText: 'Confirm'),
                 ],
               ),
             ),

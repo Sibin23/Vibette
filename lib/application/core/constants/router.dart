@@ -1,106 +1,91 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vibette/application/core/constants/router_constants.dart';
+import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
+import 'package:vibette/presentation/screens/explore_screen/explore.dart';
 import 'package:vibette/presentation/screens/forgot_password/email_verification.dart';
 import 'package:vibette/presentation/screens/forgot_password/forgot_password_screen.dart';
+import 'package:vibette/presentation/screens/forgot_password/reset_password_screen.dart';
 import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
-import 'package:vibette/presentation/screens/login_screen/login_screen.dart';
+import 'package:vibette/presentation/screens/main_wrapper/main_wrapper.dart';
+import 'package:vibette/presentation/screens/profile/profile_screen.dart';
+import 'package:vibette/presentation/screens/sign_in/signin_screen.dart';
 import 'package:vibette/presentation/screens/sign_up/signUp.dart';
 import 'package:vibette/presentation/screens/splash_screen/splash_screen.dart';
 
-final GoRouter router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      pageBuilder: (BuildContext context, GoRouterState state) {
-        return const CupertinoPage(child: SplashScreen());
-      },
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'SignIn',
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return const CupertinoPage(child: LoginScreen());
-          },
-        ),
-        GoRoute(
-          path: 'SignUp',
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return const CupertinoPage(child: SignUp());
-          },
-        ),
-        GoRoute(
-          path: 'ForgotPassword',
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return const CupertinoPage(child: ForgotPasswordScreen());
-          },
-        ),
-        GoRoute(
-          path: 'OTPVerification',
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return const CupertinoPage(child: GetOTPScreen());
-          },
-        ),
-        GoRoute(
-          path: 'HomeScreen',
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return const CupertinoPage(child: HomeScreen());
-          },
-        ),
-      ],
+class AppRouter {
+  final GoRouter router = GoRouter(
+    initialLocation: RouterConstants.splashScreen,
+    routes: <RouteBase>[
+      GoRoute(
+        path: RouterConstants.splashScreen,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: SplashScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.signIn,
+        path: RouterConstants.signIn,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: SignInScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.SignUpScreen,
+        path: RouterConstants.SignUpScreen,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: SignUpScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.forgotPassword,
+        path: RouterConstants.forgotPassword,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: ForgotPasswordScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.otpVerification,
+        path: RouterConstants.otpVerification,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: GetOTPScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.resetPassword,
+        path: RouterConstants.resetPassword,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return const CupertinoPage(child: ResetPasswordScreen());
+        },
+      ),
+      GoRoute(
+        name: RouterConstants.basePage,
+        path: RouterConstants.basePage,
+        pageBuilder: (BuildContext context, GoRouterState state) {
+          return  const CupertinoPage(child: MainWrapper());
+        },
+      ),
+       GoRoute(
+      name: RouterConstants.homeScreen,
+      path: RouterConstants.homeScreen,
+      pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()), // Use MaterialPage
     ),
-    // GoRoute(
-    //   path: '/profile',
-    //   builder: (BuildContext context, GoRouterState state) {
-    //     return ProfileScreen();
-    //   },
-    // ),
-  ],
-);
-
-// CustomTransitionBuilder platformAwareTransitionBuilder() {
-//   return (context, animation, secondaryAnimation, child) {
-//     if (kIsIOS) {
-//       return CupertinoPageTransitionsBuilder().buildTransitions(
-//         null, context, animation, secondaryAnimation, child,
-//       );
-//     } else {
-//       return FadeTransition(
-//         opacity: animation,
-//         child: child,
-//       );
-//     }
-//   };
-// }
-// class CupertinoPage {
-//   CupertinoPage({required this.child});
-
-//   final Widget child;
-
-//   @override
-//   Widget buildTransitions(
-//     BuildContext context,
-//     Animation<double> animation,
-//     Animation<double> secondaryAnimation,
-//     Widget child,
-//   ) {
-//     return CupertinoPageRoute<void>(
-//       builder: (context) => child,
-//       fullscreenDialog: false,
-//     ).buildTransitions(
-//       null,
-//       context,
-//       animation,
-//       secondaryAnimation,
-//       child,
-//     );
-//   }
-// }
-
-// Screens
-
-const String splashScreen = '/SplashScreen';
-const String signIn = '/SignIn';
-const String signUp = '/SignUp';
-const String forgotPassword = '/ForgotPassword';
-const String otpVerification = '/OTPVerification';
-const String homeScreen = '/HomeScreen';
+    GoRoute(
+      name: RouterConstants.explore,
+      path: RouterConstants.explore,
+      pageBuilder: (context, state) => const MaterialPage(child: ExploreScreen()), // Use MaterialPage
+    ),
+    GoRoute(
+      name: RouterConstants.addpost,
+      path: RouterConstants.addpost,
+      pageBuilder: (context, state) => const MaterialPage(child: AddPostScreen()), // Use MaterialPage
+    ),
+    GoRoute(
+      name: RouterConstants.profile,
+      path: RouterConstants.profile,
+      pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
+    ),
+    ],
+  );
+}
