@@ -122,7 +122,7 @@ class _GetOTPScreenState extends State<GetOTPScreen> {
                 focusedBorderColor: grey,
                 numberOfFields: 4,
                 borderColor: grey,
-                enabledBorderColor: appThemePrimary,
+                enabledBorderColor: appThemeColor2,
                 showFieldAsBox: true,
                 onCodeChanged: (String code) {},
                 onSubmit: (String verificationCode) {

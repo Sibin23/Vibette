@@ -25,11 +25,12 @@ class AppThemeButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: const LinearGradient(
-                begin: Alignment.topCenter,
+                begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  appThemePrimary,
-                  appThemeSecondary,
+                  appThemeColor1,
+                  appThemeColor2,
+                  appThemeColor3,
                 ])),
         child: Text(
           buttonText,

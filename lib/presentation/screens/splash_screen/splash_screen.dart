@@ -18,9 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      _checkLogin();
-    });
+    // Future.delayed(const Duration(seconds: 3), () {
+    _checkLogin();
+    // });
   }
 
   @override
@@ -55,8 +55,9 @@ class _SplashScreenState extends State<SplashScreen> {
                               begin: Alignment.topCenter,
                               end: Alignment.bottomRight,
                               colors: [
-                                Color.fromRGBO(159, 2, 94, 1),
-                                Color.fromRGBO(249, 200, 41, 1)
+                                appThemeColor1,
+                                appThemeColor2,
+                                appThemeColor3
                               ]),
                         ),
                         child: Center(
@@ -110,7 +111,7 @@ class _SplashScreenState extends State<SplashScreen> {
                       h60,
                       h70,
                       LoadingAnimationWidget.progressiveDots(
-                          color: appThemePrimary, size: 70),
+                          color: appThemeColor2, size: 70),
                     ],
                   ),
                 ),

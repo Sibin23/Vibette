@@ -20,8 +20,8 @@ class VibetteLogo extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomRight,
               colors: [
-                appThemePrimary,
-                appThemeSecondary,
+                appThemeColor2,
+                appThemeColor3,
               ]),
         ),
         child: Center(
