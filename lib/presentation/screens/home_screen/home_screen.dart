@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/presentation/screens/home_screen/widget/home_screen_loading.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/story_section.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/user_post_widget.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,49 +16,63 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  ValueNotifier<bool> scrollnotifier = ValueNotifier(true);
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        // Check if widget is still mounted before setState
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: appTheme(context),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: AppBar(
-            surfaceTintColor: appTheme(context),
-            backgroundColor: appTheme(context),
-            title: Text(
-              'vibette',
-              style: Theme.of(context).brightness == Brightness.dark
-                  ? appbarTextW
-                  : appbarTextB,
-            ),
-            actions: [
-              IconButton(
-                iconSize: 30,
-                icon: Icon(
-                  CupertinoIcons.person_crop_circle_badge_plus,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? white
-                      : black,
-                ),
-                onPressed: () {},
-              ),
-              w10
-            ],
+      backgroundColor: appTheme(context),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: AppBar(
+          surfaceTintColor: appTheme(context),
+          backgroundColor: appTheme(context),
+          title: Text(
+            'vibette',
+            style: Theme.of(context).brightness == Brightness.dark
+                ? appbarTextW
+                : appbarTextB,
           ),
+          actions: [
+            IconButton(
+              iconSize: 35,
+              icon: Icon(
+                CupertinoIcons.person_crop_circle_badge_plus,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? white
+                    : black,
+              ),
+              onPressed: () {},
+            ),
+            w10
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            StorySection(size: size),
-            h20,
-            // user Post
-            SizedBox(
-              width: size.width,
-              child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
+      ),
+      body: isLoading
+          ? HomeScreenLoading(size: size)
+          : ListView(
+              // Use ListView directly
+              children: [
+                StorySection(size: size),
+                h20,
+                // User Posts
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(), // Important!
+                  shrinkWrap: true, // Important!
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -72,9 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         postUsername: 'cristiano',
                       ),
                     );
-                  }),
+                  },
+                ),
+              ],
             ),
-          ]),
-        ));
+    );
   }
 }

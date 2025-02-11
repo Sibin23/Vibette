@@ -122,10 +122,13 @@ class _SignInScreenState extends State<SignInScreen> {
             h20,
             InkWell(
               onTap: () {},
-              child: Image.asset(
-                googleLogo,
+              child: Container(
                 width: 50,
                 height: 50,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image.asset(
+                  googleLogo,fit: BoxFit.cover,
+                ),
               ),
             ),
             h20,

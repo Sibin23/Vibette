@@ -84,7 +84,11 @@ class _GetOTPScreenState extends State<GetOTPScreen> {
       body: SafeArea(
           child: ListView(children: [
         h30,
-        const VibetteLogo(),
+       Container(
+        alignment: Alignment.center,
+        width: size.width,
+        height: 200,
+        child: Image.asset('assets/otpsent.webp',fit: BoxFit.cover,)),
         Text(
           'Vibette',
           textAlign: TextAlign.center,

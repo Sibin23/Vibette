@@ -86,6 +86,11 @@ class AppRouter {
       path: RouterConstants.profile,
       pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
     ),
+    // GoRoute(
+    //   name: RouterConstants.profile,
+    //   path: RouterConstants.profile,
+    //   pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
+    // ),
     ],
   );
 }

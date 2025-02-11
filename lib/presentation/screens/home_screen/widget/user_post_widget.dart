@@ -128,11 +128,7 @@ class UserPostWidget extends StatelessWidget {
                 ]),
           ),
 
-          // ReadMoreText(
-          //   // ' A dream come true Portugal will host the World Cup in 2030',
-          //   'ugin that allows for expanding and collapsing text with the added capability to style and interact with specific patterns in the text like hashtags, URLs, and mentions using the new Annotation feature.',
-          //   trimMode: TrimMode.Length,
-          // ),
+          
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: ReadMoreText(
@@ -172,37 +168,10 @@ class UserPostWidget extends StatelessWidget {
                   ),
                 ),
               ],
-              // moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              
             ),
           )
-          // RichText(
-          //   softWrap: true,
-          //   text: TextSpan(
-          //     style: Theme.of(context).brightness == Brightness.dark
-          //         ? subtitle2W
-          //         : subtitle2B, // Inherit default text style
-          //     children: <TextSpan>[
-          //       TextSpan(
-          //           text: 'Cristiano',
-          //           children: [
-          //             TextSpan(
-          //               text:
-          //                   ' A dream come true Portugal will host the World Cup in 2030',
-          //             ),
-          //           ],
-          //           style: Theme.of(context).brightness == Brightness.dark
-          //               ? subtitle2BoldW
-          //               : subtitle2BoldB),
-          //       TextSpan(
-          //         text: 'more',
-          //         style: TextStyle(
-          //             color: Theme.of(context).brightness == Brightness.dark
-          //                 ? white
-          //                 : black),
-          //       )
-          //     ],
-          //   ),
-          // )
+         
           // main Ui
         ],
       ),
