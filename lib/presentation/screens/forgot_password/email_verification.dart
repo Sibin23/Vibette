@@ -7,8 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
-
-import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 
 class GetOTPScreen extends StatefulWidget {

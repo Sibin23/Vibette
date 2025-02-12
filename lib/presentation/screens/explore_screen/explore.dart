@@ -54,7 +54,7 @@ class _ExploreScreenContentState extends State<_ExploreScreenContent> {
         backgroundColor: appTheme(context),
         body: SafeArea(
           child: _isLoading
-              ? ExploreScreenLoading()
+              ? const ExploreScreenLoading()
               : Column(
                   children: [
                     Padding(
