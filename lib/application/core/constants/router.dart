@@ -28,7 +28,7 @@ class AppRouter {
         name: RouterConstants.signIn,
         path: RouterConstants.signIn,
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage(child: SignInScreen());
+          return const CupertinoPage(child: SigninScreen());
         },
       ),
       GoRoute(

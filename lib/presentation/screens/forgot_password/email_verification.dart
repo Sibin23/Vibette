@@ -82,11 +82,14 @@ class _GetOTPScreenState extends State<GetOTPScreen> {
       body: SafeArea(
           child: ListView(children: [
         h30,
-       Container(
-        alignment: Alignment.center,
-        width: size.width,
-        height: 200,
-        child: Image.asset('assets/otpsent.webp',fit: BoxFit.cover,)),
+        Container(
+            alignment: Alignment.center,
+            width: size.width,
+            height: 200,
+            child: Image.asset(
+              'assets/otpsent.webp',
+              fit: BoxFit.cover,
+            )),
         Text(
           'Vibette',
           textAlign: TextAlign.center,
@@ -123,6 +126,10 @@ class _GetOTPScreenState extends State<GetOTPScreen> {
                 fieldHeight: 70,
                 focusedBorderColor: grey,
                 numberOfFields: 4,
+                keyboardType: TextInputType.number,
+                cursorColor: Theme.of(context).brightness == Brightness.dark
+                    ? white
+                    : grey,
                 borderColor: grey,
                 enabledBorderColor: appThemeColor2,
                 showFieldAsBox: true,

@@ -3,10 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
 
 class SplashScreenDesktop extends StatelessWidget {
   final Size size;
-  const SplashScreenDesktop({super.key, required this.size});
+  final SplashState state;
+  const SplashScreenDesktop({super.key, required this.size, required this.state});
 
   @override
   Widget build(BuildContext context) {

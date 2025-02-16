@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/presentation/bloc/cubit/password_visibility_cubit.dart';
+import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
