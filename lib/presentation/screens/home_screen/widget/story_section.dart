@@ -14,7 +14,7 @@ class StorySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 110,
+      height: 120,
       width: size.width,
       child: ListView.builder(
           itemCount: 10,
@@ -100,7 +100,7 @@ class StorySection extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 80,
                           child: Text(
                             'Sindrella_lally_stephen',

@@ -3,22 +3,20 @@ import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
 import 'package:vibette/presentation/screens/explore_screen/explore.dart';
 import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
-import 'package:vibette/presentation/screens/main_wrapper/desktop/main_wrapper_desktop.dart';
-import 'package:vibette/presentation/screens/main_wrapper/mobile/main_wrapper_mobile.dart';
-import 'package:vibette/presentation/screens/main_wrapper/tablet/main_wrapper_tablet.dart';
 import 'package:vibette/presentation/screens/messages/messages_screen.dart';
 import 'package:vibette/presentation/screens/profile/profile_screen.dart';
-import 'package:vibette/presentation/screens/widgets/app_layout.dart';
 import 'package:vibette/presentation/screens/widgets/bottom_navbar.dart';
 
-class MainWrapper extends StatefulWidget {
-  const MainWrapper({super.key});
+final ValueNotifier<int> indexChangeNotifier = ValueNotifier(0);
+
+class MainWrapperMobile extends StatefulWidget {
+  const MainWrapperMobile({super.key});
 
   @override
-  State<MainWrapper> createState() => _MainWrapperState();
+  State<MainWrapperMobile> createState() => _MainWrapperMobileState();
 }
 
-class _MainWrapperState extends State<MainWrapper> {
+class _MainWrapperMobileState extends State<MainWrapperMobile> {
   final pages = [
     const HomeScreen(),
     const ExploreScreen(),
@@ -29,12 +27,15 @@ class _MainWrapperState extends State<MainWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    final size =  MediaQuery.of(context).size;
     return Scaffold(
-      body: AppLayout(
-          mobileLayout: MainWrapperMobile(),
-          tabletLayout: MainWrapperTablet(),
-          desktopLayout: MainWrapperDesktop(size: size)),
-    );
+        backgroundColor: appTheme(context),
+        extendBody: true,
+        body: ValueListenableBuilder(
+          valueListenable: indexChangeNotifier,
+          builder: (BuildContext context, int index, Widget? _) {
+            return pages[index];
+          },
+        ),
+        bottomNavigationBar: const BottomNavbarWidget());
   }
 }

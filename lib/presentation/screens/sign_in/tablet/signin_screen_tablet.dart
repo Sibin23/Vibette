@@ -144,7 +144,7 @@ class SigninScreenTablet extends StatelessWidget {
                             : subtitleNormalB),
                     w10,
                     InkWell(
-                      onTap: () => context.push(RouterConstants.SignUpScreen),
+                      onTap: () => context.push(RouterConstants.signUpScreen),
                       child: Text(
                         'Sign Up',
                         style: appThemeText,

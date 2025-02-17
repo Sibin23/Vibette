@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
@@ -43,12 +42,7 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
             Text(
               'Vibette',
               textAlign: TextAlign.center,
-              style: GoogleFonts.diphylleia(
-                  color: Theme.of(context).brightness == Brightness.light
-                      ? black
-                      : white,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w500),
+              style: Theme.of(context).textTheme.displayLarge,
             ),
             h30,
             Padding(
@@ -58,9 +52,7 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
                 child: Text(
                   textAlign: TextAlign.start,
                   'Getting Started !',
-                  style: Theme.of(context).brightness == Brightness.dark
-                      ? titleTextWhite
-                      : titleTextBlack,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ),
@@ -96,7 +88,7 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
                       onTap: () => context.push(RouterConstants.forgotPassword),
                       child: Text(
                         'Forgot Password?',
-                        style: appThemeText,
+                        style: Theme.of(context).textTheme.displaySmall,
                       ),
                     ),
                     h20,
@@ -119,9 +111,7 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
             Text(
               textAlign: TextAlign.center,
               'Or Continue with',
-              style: Theme.of(context).brightness == Brightness.dark
-                  ? subtitleNormalW
-                  : subtitleNormalB,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
             h20,
             InkWell(
@@ -141,15 +131,13 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Don\'t have an account?',
-                    style: Theme.of(context).brightness == Brightness.dark
-                        ? subtitleNormalW
-                        : subtitleNormalB),
+                    style: Theme.of(context).textTheme.bodyLarge),
                 w10,
                 InkWell(
-                  onTap: () => context.push(RouterConstants.SignUpScreen),
+                  onTap: () => context.push(RouterConstants.signUpScreen),
                   child: Text(
                     'Sign Up',
-                    style: appThemeText,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                 ),
               ],

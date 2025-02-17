@@ -2,7 +2,7 @@ import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vibette/application/core/constants/colors.dart';
-import 'package:vibette/presentation/screens/main_wrapper/main_wrapper.dart';
+import 'package:vibette/presentation/screens/main_wrapper/mobile/main_wrapper_mobile.dart';
 
 class BottomNavbarWidget extends StatelessWidget {
   const BottomNavbarWidget({super.key});

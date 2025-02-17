@@ -2,18 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
-import 'package:vibette/presentation/screens/sign_in/widgets/custom_outline_button.dart';
+import 'package:vibette/presentation/screens/widgets/custom_outline_button.dart';
 import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
-import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
-class SigninScreenDesktop extends StatefulWidget {
+class SigninScreenDesktop extends StatelessWidget {
   const SigninScreenDesktop(
       {super.key,
       required this.emailController,
@@ -26,11 +24,6 @@ class SigninScreenDesktop extends StatefulWidget {
   final Size size;
 
   @override
-  State<SigninScreenDesktop> createState() => _SigninScreenDesktopState();
-}
-
-class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme(context),
@@ -42,11 +35,11 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
             children: [
               Container(
                 color: Colors.amber,
-                width: widget.size.width * 0.2,
-                height: widget.size.height * 0.8,
+                width: size.width * 0.2,
+                height: size.height * 0.8,
               ),
-              Container(
-                width: widget.size.width * 0.5,
+              SizedBox(
+                width: size.width * 0.4,
                 child: Column(
                   children: [
                     h40,
@@ -66,7 +59,7 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: SizedBox(
-                        width: widget.size.width,
+                        width: size.width,
                         child: Text(
                           textAlign: TextAlign.start,
                           'Getting Started !',
@@ -80,13 +73,13 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Form(
-                        key: widget.formKey,
+                        key: formKey,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             TextFieldAuthentication(
                               prefixIcon: Icons.email_outlined,
-                              controller: widget.emailController,
+                              controller: emailController,
                               hintText: 'abc@gmail.com',
                               keyboardType: TextInputType.emailAddress,
                               validator: validateEmail,
@@ -99,7 +92,7 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
                                       .toggleVisibility();
                                 },
                                 prefixIcon: Icons.password,
-                                controller: widget.passwordController,
+                                controller: passwordController,
                                 validator: validatePassword,
                                 hintText: 'Password',
                                 keyboardType: TextInputType.text),
@@ -113,7 +106,10 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
                               ),
                             ),
                             h20,
-                            CustomOutlineButton(text: 'Sign In', onTap: () {})
+                            CustomOutlineButton(
+                                size: size, text: 'Sign Up', onTap: () {
+                                  context.goNamed(RouterConstants.basePage);
+                                }),
                             // AppThemeButton(
                             //     voidCallback: () async {
                             //       //if (formKey.currentState!.validate()) {
@@ -162,7 +158,7 @@ class _SigninScreenDesktopState extends State<SigninScreenDesktop> {
                         w10,
                         InkWell(
                           onTap: () =>
-                              context.push(RouterConstants.SignUpScreen),
+                              context.push(RouterConstants.signUpScreen),
                           child: Text(
                             'Sign Up',
                             style: appThemeText,

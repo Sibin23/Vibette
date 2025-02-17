@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
@@ -9,24 +8,26 @@ import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
-import '../sign_in/widgets/vibette_logo.dart';
+import '../../sign_in/widgets/vibette_logo.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class SignUpScreenMobile extends StatelessWidget {
+  const SignUpScreenMobile(
+      {super.key,
+      required this.nameController,
+      required this.emailController,
+      required this.passwordController,
+      required this.confirmPasswordController,
+      required this.phoneController,
+      required this.size});
+  final TextEditingController nameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  final TextEditingController phoneController;
+  final Size size;
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: appTheme(context),
       body: SafeArea(
@@ -34,34 +35,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: [
           h20,
           const VibetteLogo(),
-          Text(
-            'Vibette',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.diphylleia(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? black
-                    : white,
-                fontSize: 35,
-                fontWeight: FontWeight.w500),
-          ),
+          Text('Vibette',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.displayLarge),
           h20,
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
               'Welcome !',
-              style: Theme.of(context).brightness == Brightness.dark
-                  ? titleTextWhite
-                  : titleTextBlack,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Text(
-              'Please create your account here.',
-              style: Theme.of(context).brightness == Brightness.dark
-                  ? subtitleNormalW
-                  : subtitleNormalB,
-            ),
+            child: Text('Please create your account here.',
+                style: Theme.of(context).textTheme.bodyLarge),
           ),
           h10,
           Padding(
@@ -120,18 +108,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Already have an account?',
-                style: Theme.of(context).brightness == Brightness.dark
-                    ? subtitleNormalW
-                    : subtitleNormalB,
-              ),
+              Text('Already have an account?',
+                  style: Theme.of(context).textTheme.bodyLarge),
               w10,
               InkWell(
                 onTap: () => context.pop(),
                 child: Text(
                   'Sign In',
-                  style: appThemeText,
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
               )
             ],

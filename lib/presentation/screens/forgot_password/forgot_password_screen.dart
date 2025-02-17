@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/constants/colors.dart';
-import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/application/core/constants/router_constants.dart';
-import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
-import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
-import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
-import 'package:vibette/presentation/screens/widgets/validators.dart';
+import 'package:vibette/presentation/screens/forgot_password/desktop/forgot_password_desktop.dart';
+import 'package:vibette/presentation/screens/forgot_password/mobile/forgot_password_mobile.dart';
+import 'package:vibette/presentation/screens/forgot_password/tablet/forgot_passoword_tablet.dart';
+import 'package:vibette/presentation/screens/widgets/app_layout.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -17,76 +12,30 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final formKey = GlobalKey<FormState>();
   final email = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: appTheme(context),
-      appBar: AppBar(
-        backgroundColor: appTheme(context),
-        centerTitle: true,
-        title: Text(
-          'Forgot Password?',
-          style: Theme.of(context).brightness == Brightness.dark
-              ? title2W
-              : title2B,
-        ),
-        leading: IconButton(
-            onPressed: () => context.pop(),
-            icon: const Icon(Icons.arrow_back_ios_new_outlined)),
-      ),
-      body: SafeArea(
-          child: ListView(
-        children: [
-          h30,
-          const VibetteLogo(),
-          Text(
-            'Vibette',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.diphylleia(
-                color: Theme.of(context).brightness == Brightness.light
-                    ? black
-                    : white,
-                fontSize: 35,
-                fontWeight: FontWeight.w500),
+      body: AppLayout(
+          mobileLayout: ForgotPasswordMobile(
+            email: email,
+            formKey: formKey,
+            size: size,
           ),
-          h30,
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Text(
-                    'Enter your email address to reset your password.',
-                    style: Theme.of(context).brightness == Brightness.dark
-                        ? subtitleNormalW
-                        : subtitleNormalB,
-                  ),
-                  h20,
-                  TextFieldAuthentication(
-                      prefixIcon: Icons.email_outlined,
-                      controller: email,
-                      validator: validateEmail,
-                      hintText: 'abc@gmail.com',
-                      keyboardType: TextInputType.emailAddress),
-                  h30,
-                  AppThemeButton(
-                      size: size,
-                      voidCallback: () {
-                        //if (formKey.currentState!.validate()) {
-                        context.push(RouterConstants.otpVerification);
-                        //  }
-                      },
-                      buttonText: 'Get OTP'),
-                ],
-              ),
-            ),
+          tabletLayout: ForgotPassowordTablet(
+            formkey: formKey,
+            email: email,
+            size: size,
           ),
-        ],
-      )),
+          desktopLayout: ForgotPasswordDesktop(
+            email: email,
+            formKey: formKey,
+            size: size,
+          )),
     );
   }
 }

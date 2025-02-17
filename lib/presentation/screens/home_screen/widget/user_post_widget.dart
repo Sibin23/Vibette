@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/presentation/screens/widgets/custom_like_button.dart';
 
 class UserPostWidget extends StatelessWidget {
   const UserPostWidget({
@@ -83,16 +84,21 @@ class UserPostWidget extends StatelessWidget {
                 children: [
                   // Like Button
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: Icon(
-                          Icons.favorite,
-                          color: red,
-                          size: 30,
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomLikeButton(),
                       ),
+                      // const SizedBox(
+                      //   width: 40,
+                      //   height: 40,
+                      //   child: Icon(
+                      //     Icons.favorite,
+                      //     color: red,
+                      //     size: 30,
+                      //   ),
+                      // ),
                       Text(postLikes,
                           style: Theme.of(context).brightness == Brightness.dark
                               ? subtitleNormalW

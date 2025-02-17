@@ -11,8 +11,10 @@ import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
 import 'package:vibette/presentation/screens/main_wrapper/main_wrapper.dart';
 import 'package:vibette/presentation/screens/profile/profile_screen.dart';
 import 'package:vibette/presentation/screens/sign_in/signin_screen.dart';
-import 'package:vibette/presentation/screens/sign_up/signUp.dart';
+import 'package:vibette/presentation/screens/sign_up/signup_screen.dart';
 import 'package:vibette/presentation/screens/splash_screen/splash_screen.dart';
+
+
 
 class AppRouter {
   final GoRouter router = GoRouter(
@@ -32,10 +34,10 @@ class AppRouter {
         },
       ),
       GoRoute(
-        name: RouterConstants.SignUpScreen,
-        path: RouterConstants.SignUpScreen,
+        name: RouterConstants.signUpScreen,
+        path: RouterConstants.signUpScreen,
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage(child: SignUpScreen());
+          return const CupertinoPage(child: SignupScreen());
         },
       ),
       GoRoute(
