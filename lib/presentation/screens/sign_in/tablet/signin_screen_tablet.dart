@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
@@ -18,16 +15,20 @@ class SigninScreenTablet extends StatelessWidget {
       required this.emailController,
       required this.passwordController,
       required this.formKey,
-      required this.size});
+      required this.size,
+      required this.onSigninButtonClicked,
+      required this.onGoogleButtonClicked, required this.appTheme});
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
   final Size size;
+  final VoidCallback onSigninButtonClicked;
+  final VoidCallback onGoogleButtonClicked;
+  final ThemeData appTheme;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appTheme(context),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Center(
@@ -40,12 +41,7 @@ class SigninScreenTablet extends StatelessWidget {
                 Text(
                   'Vibette',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.diphylleia(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? black
-                          : white,
-                      fontSize: 35,
-                      fontWeight: FontWeight.w500),
+                  style: appTheme.textTheme.displayLarge,
                 ),
                 h30,
                 Padding(
@@ -55,9 +51,7 @@ class SigninScreenTablet extends StatelessWidget {
                     child: Text(
                       textAlign: TextAlign.start,
                       'Getting Started !',
-                      style: Theme.of(context).brightness == Brightness.dark
-                          ? titleTextWhite
-                          : titleTextBlack,
+                      style: appTheme.textTheme.titleLarge
                     ),
                   ),
                 ),
@@ -94,18 +88,15 @@ class SigninScreenTablet extends StatelessWidget {
                               context.push(RouterConstants.forgotPassword),
                           child: Text(
                             'Forgot Password?',
-                            style: appThemeText,
+                            style: appTheme.textTheme.displaySmall,
                           ),
                         ),
                         h20,
                         AppThemeButton(
                             voidCallback: () async {
-                              //if (formKey.currentState!.validate()) {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              await prefs.setBool('isLoggedIn', true);
-                              context.goNamed(RouterConstants.basePage);
-                              //  }
+                              if (formKey.currentState!.validate()) {
+                                onSigninButtonClicked();
+                              }
                             },
                             buttonText: 'Sign In',
                             size: size),
@@ -117,13 +108,13 @@ class SigninScreenTablet extends StatelessWidget {
                 Text(
                   textAlign: TextAlign.center,
                   'Or Continue with',
-                  style: Theme.of(context).brightness == Brightness.dark
-                      ? subtitleNormalW
-                      : subtitleNormalB,
+                  style: appTheme.textTheme.bodyLarge,
                 ),
                 h20,
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    onGoogleButtonClicked();
+                  },
                   child: Container(
                     width: 50,
                     height: 50,
@@ -139,15 +130,13 @@ class SigninScreenTablet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Don\'t have an account?',
-                        style: Theme.of(context).brightness == Brightness.dark
-                            ? subtitleNormalW
-                            : subtitleNormalB),
+                        style: appTheme.textTheme.bodyLarge),
                     w10,
                     InkWell(
                       onTap: () => context.push(RouterConstants.signUpScreen),
                       child: Text(
                         'Sign Up',
-                        style: appThemeText,
+                        style: appTheme.textTheme.displaySmall,
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vibette/application/core/constants/colors.dart';
@@ -8,9 +9,12 @@ class ExploreScreenLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
-      baseColor: grey.shade800,
-      highlightColor: grey300,
+      baseColor: isDarkMode
+          ? Colors.grey[800]!
+          : Colors.grey[300]!,
+      highlightColor: isDarkMode ? Colors.grey[600]! : Colors.grey[100]!,
       child: Column(children: [
         const Padding(
           padding: EdgeInsets.all(10.0),
@@ -34,9 +38,7 @@ class ExploreScreenLoading extends StatelessWidget {
               childCount: 32,
               (context, index) {
                 return Container(
-                  decoration: const BoxDecoration(
-                    color: white
-                  ),
+                  decoration: const BoxDecoration(color: white),
                 );
               },
             ),

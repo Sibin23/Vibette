@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
@@ -12,27 +10,26 @@ import 'package:vibette/presentation/screens/widgets/validators.dart';
 
 import '../widgets/vibette_logo.dart';
 
-class SignInScreenMobile extends StatefulWidget {
+class SignInScreenMobile extends StatelessWidget {
   const SignInScreenMobile(
       {super.key,
       required this.emailController,
       required this.passwordController,
       required this.formKey,
-      required this.size});
+      required this.size,
+      required this.onSigninButtonClicked,
+      required this.onGoogleButtonClicked, required this.appTheme});
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final GlobalKey<FormState> formKey;
   final Size size;
+  final VoidCallback onSigninButtonClicked;
+  final VoidCallback onGoogleButtonClicked;
+  final ThemeData appTheme;
 
-  @override
-  State<SignInScreenMobile> createState() => _SignInScreenMobileState();
-}
-
-class _SignInScreenMobileState extends State<SignInScreenMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appTheme(context),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
@@ -42,17 +39,17 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
             Text(
               'Vibette',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.displayLarge,
+              style: appTheme.textTheme.displayLarge,
             ),
             h30,
             Padding(
               padding: const EdgeInsets.only(left: 15),
               child: SizedBox(
-                width: widget.size.width,
+                width: size.width,
                 child: Text(
                   textAlign: TextAlign.start,
                   'Getting Started !',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  style: appTheme.textTheme.titleLarge,
                 ),
               ),
             ),
@@ -60,13 +57,13 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Form(
-                key: widget.formKey,
+                key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     TextFieldAuthentication(
                       prefixIcon: Icons.email_outlined,
-                      controller: widget.emailController,
+                      controller: emailController,
                       hintText: 'abc@gmail.com',
                       keyboardType: TextInputType.emailAddress,
                       validator: validateEmail,
@@ -79,7 +76,7 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
                               .toggleVisibility();
                         },
                         prefixIcon: Icons.password,
-                        controller: widget.passwordController,
+                        controller: passwordController,
                         validator: validatePassword,
                         hintText: 'Password',
                         keyboardType: TextInputType.text),
@@ -88,21 +85,18 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
                       onTap: () => context.push(RouterConstants.forgotPassword),
                       child: Text(
                         'Forgot Password?',
-                        style: Theme.of(context).textTheme.displaySmall,
+                        style: appTheme.textTheme.displaySmall,
                       ),
                     ),
                     h20,
                     AppThemeButton(
                         voidCallback: () async {
-                          //if (formKey.currentState!.validate()) {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setBool('isLoggedIn', true);
-                          context.goNamed(RouterConstants.basePage);
-                          //  }
+                          if (formKey.currentState!.validate()) {
+                            onSigninButtonClicked();
+                          }
                         },
                         buttonText: 'Sign In',
-                        size: widget.size),
+                        size: size),
                   ],
                 ),
               ),
@@ -111,11 +105,13 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
             Text(
               textAlign: TextAlign.center,
               'Or Continue with',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: appTheme.textTheme.bodyLarge,
             ),
             h20,
             InkWell(
-              onTap: () {},
+              onTap: () {
+                onGoogleButtonClicked();
+              },
               child: Container(
                 width: 50,
                 height: 50,
@@ -131,13 +127,13 @@ class _SignInScreenMobileState extends State<SignInScreenMobile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Don\'t have an account?',
-                    style: Theme.of(context).textTheme.bodyLarge),
+                    style: appTheme.textTheme.bodyLarge),
                 w10,
                 InkWell(
                   onTap: () => context.push(RouterConstants.signUpScreen),
                   child: Text(
                     'Sign Up',
-                    style: Theme.of(context).textTheme.displaySmall,
+                    style: appTheme.textTheme.displaySmall,
                   ),
                 ),
               ],

@@ -1,21 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
 
-class SplashScreenMobile extends StatelessWidget {
+class SplashScreenContent extends StatelessWidget {
   final Size size;
-  final SplashState state;
-  const SplashScreenMobile(
-      {super.key, required this.size, required this.state});
+  const SplashScreenContent({super.key, required this.size});
 
-  // @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SizedBox(
+    final appTheme = Theme.of(context);
+    return SizedBox(
       height: size.height,
       width: size.width,
       child: Stack(
@@ -85,12 +82,7 @@ class SplashScreenMobile extends StatelessWidget {
                   ),
                   Text(
                     'Vibette',
-                    style: GoogleFonts.diphylleia(
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? white
-                            : black,
-                        fontSize: 35,
-                        fontWeight: FontWeight.w500),
+                    style: appTheme.textTheme.displayLarge,
                   ),
                   h60,
                   h70,
@@ -111,6 +103,6 @@ class SplashScreenMobile extends StatelessWidget {
               ))
         ],
       ),
-    ));
+    );
   }
 }

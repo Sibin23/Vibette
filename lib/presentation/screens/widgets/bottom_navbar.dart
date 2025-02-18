@@ -12,6 +12,7 @@ class BottomNavbarWidget extends StatelessWidget {
     return ValueListenableBuilder(
       builder: (BuildContext context, int newIndex, _) {
         return DecoratedBox(
+
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
@@ -20,7 +21,7 @@ class BottomNavbarWidget extends StatelessWidget {
               )
             ]),
             child: FlashyTabBar(
-              backgroundColor: appTheme(context),
+             
               items: [
                 FlashyTabBarItem(
                     inactiveColor: grey,

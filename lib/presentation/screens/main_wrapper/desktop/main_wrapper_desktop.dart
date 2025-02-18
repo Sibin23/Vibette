@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sidebar_with_animation/animated_side_bar.dart';
 import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
 import 'package:vibette/presentation/screens/explore_screen/explore.dart';
-import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
-import 'package:vibette/presentation/screens/main_wrapper/mobile/main_wrapper_mobile.dart';
+import 'package:vibette/presentation/screens/home_screen/desktop/home_screen_desktop.dart';
 import 'package:vibette/presentation/screens/messages/messages_screen.dart';
 import 'package:vibette/presentation/screens/profile/profile_screen.dart';
 final ValueNotifier<int> slidebarIndex = ValueNotifier(0);
@@ -19,7 +18,7 @@ class MainWrapperDesktop extends StatefulWidget {
 class _MainWrapperDesktopState extends State<MainWrapperDesktop> {
   int selectedIndex = 0;
   final List<Widget> pages = [
-    const HomeScreen(), // Replace with your actual home screen widget
+    const HomeScreenDesktop(), // Replace with your actual home screen widget
     const ExploreScreen(), // Replace with your explore screen
     const AddPostScreen(), // Replace with your add post screen
     const MessagesScreen(), // Replace with your chat screen
@@ -70,8 +69,8 @@ class _MainWrapperDesktopState extends State<MainWrapperDesktop> {
                 ],
               ),
               Expanded(
-                child: Container(
-                  color: Colors.blue,
+                child: SizedBox(
+                 
                   width: widget.size.width,
                   child: pages[index],
                 ),

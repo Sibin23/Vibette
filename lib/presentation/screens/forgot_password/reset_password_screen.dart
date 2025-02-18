@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/screens/forgot_password/desktop/resetpassword_desktop.dart';
 import 'package:vibette/presentation/screens/forgot_password/mobile/resetpassword_mobile.dart';

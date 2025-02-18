@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
 import 'package:vibette/presentation/screens/explore_screen/explore.dart';
 import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
@@ -9,7 +8,6 @@ import 'package:vibette/presentation/screens/main_wrapper/tablet/main_wrapper_ta
 import 'package:vibette/presentation/screens/messages/messages_screen.dart';
 import 'package:vibette/presentation/screens/profile/profile_screen.dart';
 import 'package:vibette/presentation/screens/widgets/app_layout.dart';
-import 'package:vibette/presentation/screens/widgets/bottom_navbar.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});

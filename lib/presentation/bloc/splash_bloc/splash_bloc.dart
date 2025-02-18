@@ -22,6 +22,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           print("Emitting SplashLoaded"); // Debug print
         } 
       } catch (e) {
+        emit(SplashLoading());
         emit(SplashError(e.toString()));
         print("Error: ${e.toString()}"); // Debug print
       }

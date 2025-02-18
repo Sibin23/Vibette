@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
 import 'package:vibette/presentation/screens/explore_screen/explore.dart';
 import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
@@ -28,7 +27,7 @@ class _MainWrapperMobileState extends State<MainWrapperMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: appTheme(context),
+       
         extendBody: true,
         body: ValueListenableBuilder(
           valueListenable: indexChangeNotifier,

@@ -33,7 +33,7 @@ class _ExploreScreenContentState extends State<_ExploreScreenContent> {
   bool _isLoading = true;
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
       });
@@ -51,7 +51,7 @@ class _ExploreScreenContentState extends State<_ExploreScreenContent> {
     return BlocProvider(
       create: (context) => SearchCubit(SearchRepository()),
       child: Scaffold(
-        backgroundColor: appTheme(context),
+        
         body: SafeArea(
           child: _isLoading
               ? const ExploreScreenLoading()

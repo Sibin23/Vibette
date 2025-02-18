@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
   ThemeData _lightTheme() {
     return ThemeData(
       brightness: Brightness.light,
-      scaffoldBackgroundColor: white, // Use your color constants
+      scaffoldBackgroundColor: white,
       appBarTheme: AppBarTheme(
         iconTheme: const IconThemeData(color: black),
         surfaceTintColor: white,
@@ -65,7 +65,9 @@ class MyApp extends StatelessWidget {
             GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.bold),
         bodySmall: GoogleFonts.roboto(fontSize: 16),
       ),
-
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: white,
+      ),
       fontFamily: GoogleFonts.roboto().fontFamily,
       useMaterial3: true,
       pageTransitionsTheme: const PageTransitionsTheme(
@@ -80,14 +82,16 @@ class MyApp extends StatelessWidget {
   ThemeData _darkTheme() {
     return ThemeData(
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: black, // Example dark background
+      scaffoldBackgroundColor: black,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: black,
+      ),
       appBarTheme: AppBarTheme(
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle:
             GoogleFonts.diphylleia(fontSize: 24, fontWeight: FontWeight.w400),
         backgroundColor: black,
       ),
-      // Add other dark theme customizations as needed
       useMaterial3: true,
       textTheme: TextTheme(
         displayLarge:
