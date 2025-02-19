@@ -7,14 +7,19 @@ import 'package:vibette/presentation/screens/sign_in/mobile/signin_screen_mobile
 import 'package:vibette/presentation/screens/sign_in/tablet/signin_screen_tablet.dart';
 import 'package:vibette/presentation/screens/widgets/app_layout.dart';
 
-class SigninScreen extends StatelessWidget {
+class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
 
   @override
+  State<SigninScreen> createState() => _SigninScreenState();
+}
+
+class _SigninScreenState extends State<SigninScreen> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
     final size = MediaQuery.of(context).size;
     final appTheme = Theme.of(context);
     return Scaffold(
@@ -25,12 +30,7 @@ class SigninScreen extends StatelessWidget {
             formKey: formKey,
             emailController: emailController,
             passwordController: passwordController,
-            onGoogleButtonClicked: () {},
-            onSigninButtonClicked: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.setBool('isLoggedIn', true);
-              context.goNamed(RouterConstants.basePage);
-            },
+            
           ),
           tabletLayout: SigninScreenTablet(
             emailController: emailController,

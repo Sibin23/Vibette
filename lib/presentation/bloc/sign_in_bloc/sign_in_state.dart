@@ -5,7 +5,11 @@ sealed class SignInState {}
 
 final class SignInInitial extends SignInState {}
 
-final class SignInLoading extends SignInState {}
+final class SignInLoading extends SignInState {
+  final bool isGoogleLoading;
+
+  SignInLoading({this.isGoogleLoading = false});
+}
 
 final class SignInSuccess extends SignInState {}
 

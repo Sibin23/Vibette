@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/constants/colors.dart'; // Make sure this imports your color constants
+import 'package:vibette/application/core/constants/colors.dart'; 
 import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/domain/repository/search_repository/search_repository.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/cubit/search_cubit/search_cubit.dart';
+import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
 
 void main() {
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ConfirmPasswordVisibilityCubit()),
         BlocProvider(create: (context) => SearchCubit(SearchRepository())),
         BlocProvider(create: (context) => SplashBloc()),
+        BlocProvider(create: (context) => SignInBloc()),
       ],
       child: MaterialApp.router(
         themeMode: ThemeMode.system,
