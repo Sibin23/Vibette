@@ -17,6 +17,8 @@ final grey100 = Colors.grey.shade100;
 final grey300 = Colors.grey.shade300;
 final grey600 = Colors.grey.shade600;
 final grey800 = Colors.grey.shade800;
+const green = Colors.green;
+const orange = Colors.orange;
 
 textfieldTheme(BuildContext context) {
   return Theme.of(context).brightness == Brightness.dark

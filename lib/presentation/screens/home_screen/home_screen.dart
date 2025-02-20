@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
+import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/home_screen_loading.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/story_section.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/user_post_widget.dart';
@@ -33,11 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-     
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
         child: AppBar(
-         
           title: Text(
             'vibette',
             style: Theme.of(context).brightness == Brightness.dark
@@ -53,7 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? white
                     : black,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setBool('isLoggedIn', false);
+                context.goNamed(RouterConstants.signIn);
+              },
             ),
             w10
           ],
@@ -71,7 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     h20,
                     // User Posts
                     ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(), // Important!
+                      physics:
+                          const NeverScrollableScrollPhysics(), // Important!
                       shrinkWrap: true, // Important!
                       itemCount: 10,
                       itemBuilder: (context, index) {

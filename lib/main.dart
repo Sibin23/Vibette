@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vibette/application/core/constants/colors.dart'; 
+import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/domain/repository/search_repository/search_repository.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/cubit/search_cubit/search_cubit.dart';
 import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
+import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
 
 void main() {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SearchCubit(SearchRepository())),
         BlocProvider(create: (context) => SplashBloc()),
         BlocProvider(create: (context) => SignInBloc()),
+        BlocProvider(create: (context) => SignUpBloc()),
       ],
       child: MaterialApp.router(
         themeMode: ThemeMode.system,
@@ -70,6 +72,9 @@ class MyApp extends StatelessWidget {
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: white,
       ),
+      snackBarTheme: SnackBarThemeData(
+        contentTextStyle: GoogleFonts.barlow(color: white, fontSize: 20, fontWeight: FontWeight.w500),
+      ),
       fontFamily: GoogleFonts.roboto().fontFamily,
       useMaterial3: true,
       pageTransitionsTheme: const PageTransitionsTheme(
@@ -106,6 +111,9 @@ class MyApp extends StatelessWidget {
         bodyMedium:
             GoogleFonts.roboto(fontSize: 16, fontWeight: FontWeight.bold),
         bodySmall: GoogleFonts.roboto(fontSize: 16),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        contentTextStyle: GoogleFonts.barlow(color: white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
