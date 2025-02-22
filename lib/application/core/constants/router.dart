@@ -14,8 +14,6 @@ import 'package:vibette/presentation/screens/sign_in/signin_screen.dart';
 import 'package:vibette/presentation/screens/sign_up/signup_screen.dart';
 import 'package:vibette/presentation/screens/splash_screen/splash_screen.dart';
 
-
-
 class AppRouter {
   final GoRouter router = GoRouter(
     initialLocation: RouterConstants.splashScreen,
@@ -49,9 +47,13 @@ class AppRouter {
       ),
       GoRoute(
         name: RouterConstants.otpVerification,
-        path: RouterConstants.otpVerification,
+        path: '${RouterConstants.otpVerification}/:email',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage(child: GetOTPScreen());
+          final email = state.pathParameters['email']!;
+          return CupertinoPage(
+              child: EmailVerification(
+            email: email,
+          ));
         },
       ),
       GoRoute(
@@ -65,34 +67,38 @@ class AppRouter {
         name: RouterConstants.basePage,
         path: RouterConstants.basePage,
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return  const CupertinoPage(child: MainWrapper());
+          return const CupertinoPage(child: MainWrapper());
         },
       ),
-       GoRoute(
-      name: RouterConstants.homeScreen,
-      path: RouterConstants.homeScreen,
-      pageBuilder: (context, state) => const MaterialPage(child: HomeScreen()), // Use MaterialPage
-    ),
-    GoRoute(
-      name: RouterConstants.explore,
-      path: RouterConstants.explore,
-      pageBuilder: (context, state) => const MaterialPage(child: ExploreScreen()), // Use MaterialPage
-    ),
-    GoRoute(
-      name: RouterConstants.addpost,
-      path: RouterConstants.addpost,
-      pageBuilder: (context, state) => const MaterialPage(child: AddPostScreen()), // Use MaterialPage
-    ),
-    GoRoute(
-      name: RouterConstants.profile,
-      path: RouterConstants.profile,
-      pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
-    ),
-    // GoRoute(
-    //   name: RouterConstants.profile,
-    //   path: RouterConstants.profile,
-    //   pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
-    // ),
+      GoRoute(
+        name: RouterConstants.homeScreen,
+        path: RouterConstants.homeScreen,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: HomeScreen()), // Use MaterialPage
+      ),
+      GoRoute(
+        name: RouterConstants.explore,
+        path: RouterConstants.explore,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ExploreScreen()), // Use MaterialPage
+      ),
+      GoRoute(
+        name: RouterConstants.addpost,
+        path: RouterConstants.addpost,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: AddPostScreen()), // Use MaterialPage
+      ),
+      GoRoute(
+        name: RouterConstants.profile,
+        path: RouterConstants.profile,
+        pageBuilder: (context, state) =>
+            const MaterialPage(child: ProfileScreen()), // Use MaterialPage
+      ),
+      // GoRoute(
+      //   name: RouterConstants.profile,
+      //   path: RouterConstants.profile,
+      //   pageBuilder: (context, state) => const MaterialPage(child: ProfileScreen()), // Use MaterialPage
+      // ),
     ],
   );
 }

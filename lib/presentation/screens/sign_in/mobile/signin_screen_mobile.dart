@@ -44,14 +44,12 @@ class SignInScreenMobile extends StatelessWidget {
           final Completer<void> completer =
               Completer<void>(); // Create a Completer
 
-          CustomSnackBar.show(context, 'Signed In Successfully', green,duration: const Duration(seconds: 2),
-              onPressed: () {
-            completer
-                .complete(); // Complete the Completer when SnackBar is closed
+          CustomSnackBar.show(context, 'Signed In Successfully', green,
+              duration: const Duration(seconds: 2), onPressed: () {
+            completer.complete();
           });
 
           completer.future.then((_) {
-            // Use the Completer's future
             navigateToHome();
           });
         } else if (state is SignInFailure) {

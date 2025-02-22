@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter/material.dart';
 part 'splash_event.dart';
 part 'splash_state.dart';
 
@@ -20,7 +19,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         if (isLoggedIn) {
           emit(SplashLoaded());
           print("Emitting SplashLoaded"); // Debug print
-        } 
+        }
       } catch (e) {
         emit(SplashLoading());
         emit(SplashError(e.toString()));

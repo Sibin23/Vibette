@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+
 import 'package:vibette/domain/repository/search_repository/search_repository.dart';
 import 'package:vibette/presentation/screens/widgets/sample.dart';
 

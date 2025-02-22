@@ -7,6 +7,9 @@ import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/domain/repository/search_repository/search_repository.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/cubit/search_cubit/search_cubit.dart';
+import 'package:vibette/presentation/bloc/email_verification_bloc/email_verification_bloc.dart';
+import 'package:vibette/presentation/bloc/forgot_password_bloc/forgot_password_bloc.dart';
+import 'package:vibette/presentation/bloc/reset_password_bloc/reset_password_bloc.dart';
 import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
@@ -34,6 +37,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SplashBloc()),
         BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => SignUpBloc()),
+        BlocProvider(create: (context) => ForgotPasswordBloc()),
+        BlocProvider(
+          create: (context) => EmailVerificationBloc(),
+        ),
+        BlocProvider(create: (context) => ResetPasswordBloc()),
       ],
       child: MaterialApp.router(
         themeMode: ThemeMode.system,
@@ -73,7 +81,8 @@ class MyApp extends StatelessWidget {
         backgroundColor: white,
       ),
       snackBarTheme: SnackBarThemeData(
-        contentTextStyle: GoogleFonts.barlow(color: white, fontSize: 20, fontWeight: FontWeight.w500),
+        contentTextStyle: GoogleFonts.barlow(
+            color: white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
       fontFamily: GoogleFonts.roboto().fontFamily,
       useMaterial3: true,
@@ -113,7 +122,8 @@ class MyApp extends StatelessWidget {
         bodySmall: GoogleFonts.roboto(fontSize: 16),
       ),
       snackBarTheme: SnackBarThemeData(
-        contentTextStyle: GoogleFonts.barlow(color: white, fontSize: 20, fontWeight: FontWeight.w500),
+        contentTextStyle: GoogleFonts.barlow(
+            color: white, fontSize: 20, fontWeight: FontWeight.w500),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {

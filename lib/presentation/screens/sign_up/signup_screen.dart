@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:vibette/presentation/screens/sign_up/desktop/signup_screen_desktop.dart';
 import 'package:vibette/presentation/screens/sign_up/mobile/signup_screen_mobile.dart';
 import 'package:vibette/presentation/screens/sign_up/tablet/signup_screen_tablet.dart';
@@ -33,37 +31,34 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (context) => SignUpBloc(),
-      child: Scaffold(
-        body: AppLayout(
-            mobileLayout: SignUpScreenMobile(
-              formkey: formkey,
-              nameController: nameController,
-              emailController: emailController,
-              passwordController: passwordController,
-              confirmPasswordController: confirmPasswordController,
-              phoneController: phoneController,
-              size: size,
-            ),
-            tabletLayout: SignUpScreenTablet(
-              formkey: formkey,
-              nameController: nameController,
-              emailController: emailController,
-              passwordController: passwordController,
-              confirmPasswordController: confirmPasswordController,
-              phoneController: phoneController,
-              size: size,
-            ),
-            desktopLayout: SignUpScreenDesktop(
-              nameController: nameController,
-              emailController: emailController,
-              passwordController: passwordController,
-              confirmPasswordController: confirmPasswordController,
-              phoneController: phoneController,
-              size: size,
-            )),
-      ),
+    return Scaffold(
+      body: AppLayout(
+          mobileLayout: SignUpScreenMobile(
+            formkey: formkey,
+            nameController: nameController,
+            emailController: emailController,
+            passwordController: passwordController,
+            confirmPasswordController: confirmPasswordController,
+            phoneController: phoneController,
+            size: size,
+          ),
+          tabletLayout: SignUpScreenTablet(
+            formkey: formkey,
+            nameController: nameController,
+            emailController: emailController,
+            passwordController: passwordController,
+            confirmPasswordController: confirmPasswordController,
+            phoneController: phoneController,
+            size: size,
+          ),
+          desktopLayout: SignUpScreenDesktop(
+            nameController: nameController,
+            emailController: emailController,
+            passwordController: passwordController,
+            confirmPasswordController: confirmPasswordController,
+            phoneController: phoneController,
+            size: size,
+          )),
     );
   }
 }

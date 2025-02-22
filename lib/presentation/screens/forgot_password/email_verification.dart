@@ -4,22 +4,29 @@ import 'package:vibette/presentation/screens/forgot_password/mobile/email_verifi
 import 'package:vibette/presentation/screens/forgot_password/tablet/email_verification_tablet.dart';
 import 'package:vibette/presentation/screens/widgets/app_layout.dart';
 
-class GetOTPScreen extends StatefulWidget {
-  const GetOTPScreen({super.key});
+class EmailVerification extends StatefulWidget {
+  final String email;
+  const EmailVerification({super.key, required this.email});
 
   @override
-  State<GetOTPScreen> createState() => _GetOTPScreenState();
+  State<EmailVerification> createState() => _EmailVerificationState();
 }
 
-class _GetOTPScreenState extends State<GetOTPScreen> {
+class _EmailVerificationState extends State<EmailVerification> {
   @override
   Widget build(BuildContext context) {
+    debugPrint(widget.email);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: AppLayout(
-          mobileLayout: EmailVerificationMobile(size: size),
-          tabletLayout: EmailVerificationTablet(size: size),
-          desktopLayout: EmailVerificationDesktop(size: size)),
+          mobileLayout:
+              EmailVerificationMobile(size: size, email: widget.email),
+          tabletLayout:
+              EmailVerificationTablet(size: size, email: widget.email),
+          desktopLayout: EmailVerificationDesktop(
+            size: size,
+            email: widget.email,
+          )),
     );
   }
 }
