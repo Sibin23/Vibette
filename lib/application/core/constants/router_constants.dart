@@ -14,5 +14,5 @@ class RouterConstants {
   static const String addpost = '/AddPost';
   static const String about = '/About';
   static const String contact = '/Contact';
-
+  static const String signUpOtp = '/SignUpOTP';
 }

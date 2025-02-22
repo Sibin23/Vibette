@@ -23,17 +23,20 @@ class SignUpScreenTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Center(
-        child: SizedBox(
-          width: size.width * 0.7,
-          child: SignUpScreenMobile(
-              formkey: formkey,
-              nameController: nameController,
-              emailController: emailController,
-              passwordController: passwordController,
-              confirmPasswordController: confirmPasswordController,
-              phoneController: phoneController,
-              size: size),
+          child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Center(
+          child: SizedBox(
+            width: size.width * 0.7,
+            child: SignUpScreenMobile(
+                formkey: formkey,
+                nameController: nameController,
+                emailController: emailController,
+                passwordController: passwordController,
+                confirmPasswordController: confirmPasswordController,
+                phoneController: phoneController,
+                size: size),
+          ),
         ),
       )),
     );

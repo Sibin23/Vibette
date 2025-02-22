@@ -40,20 +40,28 @@ final subtitle2BoldB =
 final subtitle2W = GoogleFonts.roboto(color: white, fontSize: 16);
 final subtitle2B = GoogleFonts.roboto(color: black, fontSize: 16);
 
+
+//auth key
+const authKey = 'UserLoggedIn';
+
+//token key sharedpreference
+const tokenKey = 'userToken';
+
+//userid key sharedpreference
+const userIdKey = 'userId';
+
+//userRole key sharedpreference
+const userRolekey = 'userRole';
+
+//userEmail key sharedpreference
+const userEmailkey = 'userEmail';
+
+//userName key sharedpreference
+const userNamekey = 'userName';
+
+//userProfilepic key sharedpreference
+const userProfilePickey = 'userProfilePic';
+
 // Images
 const googleLogo = 'assets/google_logo.webp';
-// BoxShadow
-// final boxShadowWhite = [
-//   BoxShadow(
-//     color: grey300,
-//     offset: const Offset(5, 5),
-//     blurRadius: 15,
-//     spreadRadius: 1,
-//   ),
-//   const BoxShadow(
-//     color: white,
-//     offset: Offset(-5, -5),
-//     blurRadius: 15,
-//     spreadRadius: 1,
-//   )
-// ];
+

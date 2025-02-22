@@ -1,6 +1,6 @@
 class ApiUrl {
   // base Url
-  static const String baseUrl = 'http://localhost:7002';
+  static const String baseUrl = 'http://localhost:7000/api';
 
   //user Urls
   static const String googleLogin = '/users/google-login';

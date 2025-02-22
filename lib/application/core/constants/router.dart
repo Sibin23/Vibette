@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
+import 'package:vibette/domain/models/user/user_model.dart';
 import 'package:vibette/presentation/screens/add_post/add_post_screen.dart';
 import 'package:vibette/presentation/screens/explore_screen/explore.dart';
 import 'package:vibette/presentation/screens/forgot_password/email_verification.dart';
@@ -11,6 +12,7 @@ import 'package:vibette/presentation/screens/home_screen/home_screen.dart';
 import 'package:vibette/presentation/screens/main_wrapper/main_wrapper.dart';
 import 'package:vibette/presentation/screens/profile/profile_screen.dart';
 import 'package:vibette/presentation/screens/sign_in/signin_screen.dart';
+import 'package:vibette/presentation/screens/sign_up/signup_otp_screen.dart';
 import 'package:vibette/presentation/screens/sign_up/signup_screen.dart';
 import 'package:vibette/presentation/screens/splash_screen/splash_screen.dart';
 
@@ -94,6 +96,23 @@ class AppRouter {
         pageBuilder: (context, state) =>
             const MaterialPage(child: ProfileScreen()), // Use MaterialPage
       ),
+      GoRoute(
+        name: RouterConstants.signUpOtp,
+        path: '${RouterConstants.signUpOtp}/email:email',
+        pageBuilder: (context, state) {
+          final email = state.pathParameters['email']!;
+          final UserModel userModel =
+              state.extra! as UserModel; // Retrieve the UserModel
+
+          return CupertinoPage(
+            child: SignupOtpScreen(
+              email: email,
+              user: userModel,
+            ),
+          );
+        },
+      ),
+
       // GoRoute(
       //   name: RouterConstants.profile,
       //   path: RouterConstants.profile,

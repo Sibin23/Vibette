@@ -52,6 +52,7 @@ class _SignupScreenState extends State<SignupScreen> {
             size: size,
           ),
           desktopLayout: SignUpScreenDesktop(
+            formkey: formkey,
             nameController: nameController,
             emailController: emailController,
             passwordController: passwordController,
