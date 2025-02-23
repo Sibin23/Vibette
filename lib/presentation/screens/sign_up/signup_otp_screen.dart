@@ -16,11 +16,9 @@ import 'package:vibette/presentation/screens/widgets/loading_button.dart';
 
 class SignupOtpScreen extends StatefulWidget {
   final UserModel user;
-  final String email;
 
   const SignupOtpScreen({
     super.key,
-    required this.email,
     required this.user,
   });
 
@@ -29,68 +27,36 @@ class SignupOtpScreen extends StatefulWidget {
 }
 
 class _SignupOtpScreenState extends State<SignupOtpScreen> {
-  late Timer _timer;
-  Timer? _debounceTimer;
   String otp = '';
-  int _start = 60;
-  bool _isResendVisible = false;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    context.read<SignUpOtpBloc>().add(StartOtpTimerEvent());
   }
 
   @override
   void dispose() {
-    _timer.cancel();
-    _debounceTimer?.cancel();
+    context.read<SignUpOtpBloc>().add(StopOtpTimerEvent());
     super.dispose();
   }
 
-  void startTimer() {
-    _isResendVisible = false;
-    _start = 60;
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_start == 0) {
-        setState(() {
-          _isResendVisible = true;
-          timer.cancel();
-        });
-      } else {
-        setState(() {
-          _start--;
-        });
-      }
-    });
-  }
+  void debounceResendOtp() {
+    context.read<SignUpOtpBloc>().add(ResendOtpEvent());
 
-  void debounceResendOtp(SignUpBloc signUpBloc) {
-    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
-    _debounceTimer = Timer(const Duration(seconds: 1), () {
-      signUpBloc.add(SignUpButtonClickEvent(
-          name: widget.user.userName,
-          password: widget.user.password,
-          phoneNumber: widget.user.phoneNumber,
-          email: widget.user.emailId));
-      startTimer(); // Restart the timer
-    });
+    context.read<SignUpOtpBloc>().add(StartOtpTimerEvent());
   }
 
   bool validateOtp() {
-    debugPrint('OTP from PinCodeTextField: $otp');
     if (otp.length == 4 && RegExp(r'^[0-9]{4}$').hasMatch(otp)) {
       return true;
     } else {
-      debugPrint(
-          'Validation failed: OTP is either not 4 digits or contains non-numeric characters');
       return false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final signUpBloc = context.read<SignUpBloc>();
     final size = MediaQuery.of(context).size;
     final height = size.height;
     return Scaffold(
@@ -133,22 +99,19 @@ class _SignupOtpScreenState extends State<SignupOtpScreen> {
                                   color: Colors.grey,
                                   shape: BoxShape.circle,
                                 ),
-                                width:
-                                    MediaQuery.of(context).size.width * 0.4,
+                                width: MediaQuery.of(context).size.width * 0.4,
                                 height:
                                     MediaQuery.of(context).size.height * 0.2,
                               ),
                               Positioned(
-                                left:
-                                    MediaQuery.of(context).size.width * 0.03,
-                                top: MediaQuery.of(context).size.height *
-                                    0.035,
+                                left: MediaQuery.of(context).size.width * 0.03,
+                                top: MediaQuery.of(context).size.height * 0.035,
                                 child: Image.asset(
                                   'assets/otpsent.webp',
-                                  width: MediaQuery.of(context).size.width *
-                                      0.35,
-                                  height: MediaQuery.of(context).size.height *
-                                      0.15,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.35,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.15,
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -167,7 +130,7 @@ class _SignupOtpScreenState extends State<SignupOtpScreen> {
                             height: height * 0.02,
                           ),
                           Text(
-                            widget.email,
+                            widget.user.emailId,
                           ),
                         ],
                       ),
@@ -210,7 +173,7 @@ class _SignupOtpScreenState extends State<SignupOtpScreen> {
                                 debugPrint('Entered OTP: $otp');
                                 context.read<SignUpOtpBloc>().add(
                                     OnOtpVerificationButtonClickedEvent(
-                                        otp: otp, email: widget.email));
+                                        otp: otp, email: widget.user.emailId));
                               } else {
                                 debugPrint('Invalid OTP: $otp');
                                 CustomSnackBar.show(
@@ -225,34 +188,72 @@ class _SignupOtpScreenState extends State<SignupOtpScreen> {
                       SizedBox(
                         height: height * 0.02,
                       ),
-                      InkWell(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Didn't get the code?",
+
+                      BlocBuilder<SignUpOtpBloc, SignUpOtpState>(
+                          builder: (context, state) {
+                        if (state is OtpTimerTickingState) {
+                          return Text(
+                            'Resend OTP in ${state.seconds} seconds', // Display seconds
+                            style: const TextStyle(color: green, fontSize: 16),
+                          );
+                        } else if (state is OtpTimerFinishedState) {
+                          return TextButton(
+                            onPressed: () {
+                              debounceResendOtp();
+                            },
+                            child: const Text(
+                              'Resend OTP',
+                              style: TextStyle(color: white, fontSize: 16),
                             ),
-                            SizedBox(
-                              width: height * 0.015,
+                          );
+                        } else if (state is OtpTimerResendingState) {
+                          return const Text("Resending otp...");
+                        } else if (state is SignUpOtpInitial ||
+                            state is SignUpOtpLoading ||
+                            state is SignUpOtpFailure ||
+                            state is SignUpOtpSuccess) {
+                          return TextButton(
+                            // Show button initially or after OTP verification/failure
+                            onPressed: () {
+                              debounceResendOtp(); // Handle resend logic
+                            },
+                            child: const Text(
+                              'Resend OTP',
+                              style: TextStyle(color: white, fontSize: 16),
                             ),
-                          ],
-                        ),
-                      ),
-                      _isResendVisible
-                          ? TextButton(
-                              onPressed: () {
-                                debounceResendOtp(signUpBloc);
-                              },
-                              child: const Text(
-                                'Resend OTP',
-                                style: TextStyle(color: white, fontSize: 16),
-                              ),
-                            )
-                          : Text(
-                              'Resend OTP in $_start seconds',
-                              style:
-                                  const TextStyle(color: green, fontSize: 16),
-                            ),
+                          );
+                        } else {
+                          return const Text('');
+                        }
+                      })
+                      // InkWell(
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: [
+                      //       const Text(
+                      //         "Didn't get the code?",
+                      //       ),
+                      //       SizedBox(
+                      //         width: height * 0.015,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // _isResendVisible
+                      //     ? TextButton(
+                      //         onPressed: () {
+                      //           debounceResendOtp();
+                      //         },
+                      //         child: const Text(
+                      //           'Resend OTP',
+                      //           style: TextStyle(color: white, fontSize: 16),
+                      //         ),
+                      //       )
+                      //     : Text(
+                      //         'Resend OTP in $_start seconds',
+                      //         style:
+                      //             const TextStyle(color: green, fontSize: 16),
+                      //       ),
                     ],
                   ),
                 ),

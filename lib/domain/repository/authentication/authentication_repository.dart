@@ -45,7 +45,7 @@ class AuthenticationRepository {
 
   Future<Response?> sentOtp(UserModel user) async {
     var data = {
-      "userName": user.userName,
+      "name": user.userName,
       "email": user.emailId,
       "password": user.password,
       "phone": user.phoneNumber

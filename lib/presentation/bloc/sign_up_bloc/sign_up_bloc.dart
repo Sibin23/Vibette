@@ -24,53 +24,44 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         Response? response =
             await AuthenticationRepository().sentOtp(finalDatas);
 
-        if (response != null && response.statusCode == 200) {
-          return emit(SignUpSuccess());
-        } else if (response != null) {
-          final responseData = jsonDecode(response.body);
-
-          return emit(SignUpFailure(message: responseData["message"]));
+        if (response != null) {
+          switch (response.statusCode) {
+            case 200:
+              emit(SignUpSuccess(user: finalDatas));
+              break;
+            case 400:
+              final responseData = jsonDecode(response.body);
+              emit(SignUpFailure(
+                  message: responseData["message"] ?? "Bad request"));
+              break;
+            case 401:
+              emit(SignUpFailure(
+                  message:
+                      "You alredy have an  account with the same email id , so try to log in."));
+              break;
+            case 403:
+              emit(SignUpFailure(
+                  message:
+                      "Forbidden. You do not have permission to access this resource."));
+              break;
+            case 404:
+              emit(SignUpFailure(message: "Resource not found."));
+              break;
+            case 500:
+              emit(SignUpFailure(
+                  message: "Internal server message. Please try again later."));
+              break;
+            default:
+              emit(SignUpFailure(
+                  message:
+                      "Unexpected message occurred. Status code: ${response.statusCode}"));
+              break;
+          }
         } else {
-          return emit(SignUpFailure(message: "something went wrong"));
+          emit(SignUpFailure(
+              message:
+                  "No response from server. Please check your internet connection."));
         }
-        // if (response != null) {
-        //   switch (response.statusCode) {
-        //     case 200:
-        //       emit(SignUpSuccess());
-        //       break;
-        //     case 400:
-        //       final responseData = jsonDecode(response.body);
-        //       emit(SignUpFailure(
-        //           message: responseData["message"] ?? "Bad request"));
-        //       break;
-        //     case 401:
-        //       emit(SignUpFailure(
-        //           message:
-        //               "You alredy have an  account with the same email id , so try to log in."));
-        //       break;
-        //     case 403:
-        //       emit(SignUpFailure(
-        //           message:
-        //               "Forbidden. You do not have permission to access this resource."));
-        //       break;
-        //     case 404:
-        //       emit(SignUpFailure(message: "Resource not found."));
-        //       break;
-        //     case 500:
-        //       emit(SignUpFailure(
-        //           message: "Internal server message. Please try again later."));
-        //       break;
-        //     default:
-        //       emit(SignUpFailure(
-        //           message:
-        //               "Unexpected message occurred. Status code: ${response.statusCode}"));
-        //       break;
-        //   }
-        // } else {
-        //   emit(SignUpFailure(
-        //       message:
-        //           "No response from server. Please check your internet connection."));
-        // }
       } catch (e) {
         emit(SignUpFailure(message: "An exception occurred: $e"));
       }

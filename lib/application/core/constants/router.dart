@@ -98,16 +98,13 @@ class AppRouter {
       ),
       GoRoute(
         name: RouterConstants.signUpOtp,
-        path: '${RouterConstants.signUpOtp}/email:email',
+        path: RouterConstants.signUpOtp, // No path parameter
         pageBuilder: (context, state) {
-          final email = state.pathParameters['email']!;
-          final UserModel userModel =
-              state.extra! as UserModel; // Retrieve the UserModel
+          final UserModel userModel = state.extra! as UserModel;
 
           return CupertinoPage(
             child: SignupOtpScreen(
-              email: email,
-              user: userModel,
+              user: userModel, // Only UserModel is passed
             ),
           );
         },

@@ -12,6 +12,7 @@ import 'package:vibette/presentation/bloc/forgot_password_bloc/forgot_password_b
 import 'package:vibette/presentation/bloc/reset_password_bloc/reset_password_bloc.dart';
 import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
+import 'package:vibette/presentation/bloc/sign_up_otp_bloc/sign_up_otp_bloc.dart';
 import 'package:vibette/presentation/bloc/splash_bloc/splash_bloc.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SplashBloc()),
         BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => SignUpBloc()),
+        BlocProvider(create: (context) => SignUpOtpBloc()),
         BlocProvider(create: (context) => ForgotPasswordBloc()),
         BlocProvider(
           create: (context) => EmailVerificationBloc(),

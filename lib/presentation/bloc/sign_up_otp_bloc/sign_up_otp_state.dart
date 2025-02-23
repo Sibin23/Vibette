@@ -1,15 +1,38 @@
 part of 'sign_up_otp_bloc.dart';
 
-@immutable
-sealed class SignUpOtpState {}
+abstract class SignUpOtpState extends Equatable {
+  const SignUpOtpState();
 
-final class SignUpOtpInitial extends SignUpOtpState {}
-
-final class SignUpOtpLoading extends SignUpOtpState {}
-
-final class SignUpOtpSuccess extends SignUpOtpState {}
-
-final class SignUpOtpFailure extends SignUpOtpState {
-  final String message;
-  SignUpOtpFailure({required this.message});
+  @override
+  List<Object> get props => [];
 }
+
+class SignUpOtpInitial extends SignUpOtpState {}
+
+class SignUpOtpLoading extends SignUpOtpState {}
+
+class SignUpOtpSuccess extends SignUpOtpState {}
+
+class SignUpOtpFailure extends SignUpOtpState {
+  final String message;
+
+  const SignUpOtpFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class OtpTimerStartedState extends SignUpOtpState {}
+
+class OtpTimerTickingState extends SignUpOtpState {
+  final int seconds;
+
+  const OtpTimerTickingState(this.seconds);
+
+  @override
+  List<Object> get props => [seconds];
+}
+
+class OtpTimerFinishedState extends SignUpOtpState {}
+
+class OtpTimerResendingState extends SignUpOtpState {}

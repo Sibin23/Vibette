@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
+import 'package:vibette/domain/models/user/user_model.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
@@ -34,6 +35,7 @@ class SignUpScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocListener<SignUpBloc, SignUpState>(listener: (context, state) {
       if (state is SignUpSuccess) {
         CustomSnackBar.show(
@@ -42,7 +44,10 @@ class SignUpScreenMobile extends StatelessWidget {
           green,
           duration: const Duration(seconds: 1),
           onPressed: () {
-            context.push(RouterConstants.signUpOtp);
+            context.pushNamed(
+              RouterConstants.signUpOtp,
+              extra: state.user, // Pass the UserModel as extra
+            );
           },
         );
       } else if (state is SignUpFailure) {
@@ -61,19 +66,19 @@ class SignUpScreenMobile extends StatelessWidget {
                   const VibetteLogo(),
                   Text('Vibette',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.displayLarge),
+                      style: theme.textTheme.displayLarge),
                   h20,
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
                       'Welcome !',
-                      style: Theme.of(context).textTheme.titleLarge,
+                      style: theme.textTheme.titleLarge,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text('Please create your account here.',
-                        style: Theme.of(context).textTheme.bodyLarge),
+                        style: theme.textTheme.bodyLarge),
                   ),
                   h10,
                   Form(
@@ -160,13 +165,13 @@ class SignUpScreenMobile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Already have an account?',
-                          style: Theme.of(context).textTheme.bodyLarge),
+                          style: theme.textTheme.bodyLarge),
                       w10,
                       InkWell(
                         onTap: () => context.pop(),
                         child: Text(
                           'Sign In',
-                          style: Theme.of(context).textTheme.displaySmall,
+                          style: theme.textTheme.displaySmall,
                         ),
                       )
                     ],
