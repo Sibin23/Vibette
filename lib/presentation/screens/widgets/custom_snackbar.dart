@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomSnackBar {
   static void show(BuildContext context, String message, Color color,
-      {Duration duration = const Duration(seconds: 3),
+      {Duration duration = const Duration(seconds: 2),
       VoidCallback? onPressed}) {
     // Get the OverlayState correctly:
     OverlayState? overlayState = Overlay.of(context);

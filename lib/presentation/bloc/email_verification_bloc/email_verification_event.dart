@@ -9,3 +9,9 @@ final class OnVerificationButtonClickEvent extends EmailVerificationEvent {
   OnVerificationButtonClickEvent(
       {required this.verificationCode, required this.email});
 }
+
+final class OnResedOtpButtonClickedEvent extends EmailVerificationEvent {
+  final String email;
+
+  OnResedOtpButtonClickedEvent(this.email);
+}

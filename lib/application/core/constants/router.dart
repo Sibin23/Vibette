@@ -60,9 +60,13 @@ class AppRouter {
       ),
       GoRoute(
         name: RouterConstants.resetPassword,
-        path: RouterConstants.resetPassword,
+        path: '${RouterConstants.resetPassword}/:email',
         pageBuilder: (BuildContext context, GoRouterState state) {
-          return const CupertinoPage(child: ResetPasswordScreen());
+          final email = state.pathParameters['email']!;
+          return CupertinoPage(
+              child: ResetPasswordScreen(
+            email: email,
+          ));
         },
       ),
       GoRoute(

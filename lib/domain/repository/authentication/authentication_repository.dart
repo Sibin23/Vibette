@@ -126,7 +126,7 @@ class AuthenticationRepository {
   // }
 
   //signin
-  static Future<Response?> userlogin(
+  static Future<Response?> userLogin(
       {required String email, required String password}) async {
     var client = http.Client();
     try {

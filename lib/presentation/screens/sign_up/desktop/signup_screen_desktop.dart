@@ -6,7 +6,6 @@ import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'package:vibette/presentation/bloc/sign_up_otp_bloc/sign_up_otp_bloc.dart';
 import 'package:vibette/presentation/screens/widgets/custom_loading_button.dart';
 import 'package:vibette/presentation/screens/widgets/custom_outline_button.dart';
 import 'package:vibette/presentation/screens/widgets/custom_snackbar.dart';
@@ -38,14 +37,17 @@ class SignUpScreenDesktop extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
-        if (state is SignUpOtpSuccess) {
+        if (state is SignUpSuccess) {
           CustomSnackBar.show(
             context,
-            'Account Created Succesfully',
+            'OTP sent to ${emailController.text.trim()}',
             green,
             duration: const Duration(seconds: 1),
             onPressed: () {
-              context.push(RouterConstants.signUpOtp);
+              context.pushNamed(
+                RouterConstants.signUpOtp,
+                extra: state.user,
+              );
             },
           );
         } else if (state is SignUpFailure) {
@@ -145,7 +147,7 @@ class SignUpScreenDesktop extends StatelessWidget {
                           ),
                         ),
                         h40,
-                        state is SignUpOtpLoading
+                        state is SignUpLoading
                             ? CustomLoadingButton(size: size)
                             : CustomOutlineButton(
                                 size: size,

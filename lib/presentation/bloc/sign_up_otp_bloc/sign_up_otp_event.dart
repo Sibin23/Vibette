@@ -11,19 +11,15 @@ class OnOtpVerificationButtonClickedEvent extends SignUpOtpEvent {
   final String otp;
   final String email;
 
-  const OnOtpVerificationButtonClickedEvent({required this.otp, required this.email});
+  const OnOtpVerificationButtonClickedEvent(
+      {required this.otp, required this.email});
 
   @override
   List<Object> get props => [otp, email];
 }
 
-class StartOtpTimerEvent extends SignUpOtpEvent {}
+class OnResendOTPButtonclickedEvent extends SignUpOtpEvent {
+  final UserModel user;
 
-class StopOtpTimerEvent extends SignUpOtpEvent {}
-
-class ResendOtpEvent extends SignUpOtpEvent {}
-class TimerFinishedEvent extends SignUpOtpEvent {}
-class TimerTickedEvent extends SignUpOtpEvent {
-  final int seconds;
-  const TimerTickedEvent(this.seconds);
+  const OnResendOTPButtonclickedEvent(this.user);
 }

@@ -21,18 +21,3 @@ class SignUpOtpFailure extends SignUpOtpState {
   @override
   List<Object> get props => [message];
 }
-
-class OtpTimerStartedState extends SignUpOtpState {}
-
-class OtpTimerTickingState extends SignUpOtpState {
-  final int seconds;
-
-  const OtpTimerTickingState(this.seconds);
-
-  @override
-  List<Object> get props => [seconds];
-}
-
-class OtpTimerFinishedState extends SignUpOtpState {}
-
-class OtpTimerResendingState extends SignUpOtpState {}

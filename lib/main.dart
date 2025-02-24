@@ -7,6 +7,7 @@ import 'package:vibette/application/core/constants/router.dart';
 import 'package:vibette/domain/repository/search_repository/search_repository.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/cubit/search_cubit/search_cubit.dart';
+import 'package:vibette/presentation/bloc/cubit/timer_cubit/timer_cubit.dart';
 import 'package:vibette/presentation/bloc/email_verification_bloc/email_verification_bloc.dart';
 import 'package:vibette/presentation/bloc/forgot_password_bloc/forgot_password_bloc.dart';
 import 'package:vibette/presentation/bloc/reset_password_bloc/reset_password_bloc.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(create: (context) => ConfirmPasswordVisibilityCubit()),
         BlocProvider(create: (context) => SearchCubit(SearchRepository())),
+        BlocProvider(create: (context) => TimerCubit()),
         BlocProvider(create: (context) => SplashBloc()),
         BlocProvider(create: (context) => SignInBloc()),
         BlocProvider(create: (context) => SignUpBloc()),

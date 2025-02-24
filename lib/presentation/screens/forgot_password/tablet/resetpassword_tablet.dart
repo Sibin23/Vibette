@@ -20,12 +20,12 @@ class ResetpasswordTabletScreen extends StatelessWidget {
       required this.size,
       required this.password,
       required this.confirmPassword,
-      required this.voidCallback});
+      required this.email});
   final GlobalKey<FormState> formkey;
   final Size size;
   final TextEditingController password;
   final TextEditingController confirmPassword;
-  final VoidCallback voidCallback;
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -110,21 +110,7 @@ class ResetpasswordTabletScreen extends StatelessWidget {
                                   : AppThemeButton(
                                       size: size,
                                       voidCallback: () {
-                                        if (password.text.trim() ==
-                                            confirmPassword.text.trim()) {
-                                          if (formkey.currentState!
-                                              .validate()) {
-                                            context
-                                                .read<ResetPasswordBloc>()
-                                                .add(
-                                                    OnConfirmButtonClickEvent());
-                                          }
-                                        }else{
-                                          CustomSnackBar.show(context,
-                                            'Password Mismatch', orange,
-                                            duration:
-                                                const Duration(seconds: 1));
-                                        }
+                                        validate(context);
                                       },
                                       buttonText: 'Confirm'),
                             ],
@@ -138,5 +124,18 @@ class ResetpasswordTabletScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  validate(BuildContext context) {
+    if (password.text.trim() == confirmPassword.text.trim()) {
+      if (formkey.currentState!.validate()) {
+        context
+            .read<ResetPasswordBloc>()
+            .add(OnConfirmButtonClickEvent(email, password.text.trim()));
+      }
+    } else {
+      CustomSnackBar.show(context, 'Password doesn\'t match', orange,
+          duration: const Duration(seconds: 1));
+    }
   }
 }

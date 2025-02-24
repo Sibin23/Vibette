@@ -40,13 +40,13 @@ class SignUpScreenMobile extends StatelessWidget {
       if (state is SignUpSuccess) {
         CustomSnackBar.show(
           context,
-          'Account Created Succesfully',
+          'OTP sent to ${emailController.text.trim()}',
           green,
           duration: const Duration(seconds: 1),
           onPressed: () {
             context.pushNamed(
               RouterConstants.signUpOtp,
-              extra: state.user, // Pass the UserModel as extra
+              extra: state.user,
             );
           },
         );
