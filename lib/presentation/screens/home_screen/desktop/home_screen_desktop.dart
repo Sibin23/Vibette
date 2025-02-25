@@ -31,7 +31,7 @@ class _HomeScreenDesktopState extends State<HomeScreenDesktop> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    print('desktop home is rebuiding');
+ 
     return Center(
       child: isLoading
           ? HomeScreenLoading(size: size)

@@ -145,11 +145,7 @@ class SigninScreenTablet extends StatelessWidget {
                       ),
                       h20,
                       InkWell(
-                        onTap: () {
-                          context
-                              .read<SignInBloc>()
-                              .add(OnSignInWithGoogleEvent());
-                        },
+                        onTap: () {},
                         child: state is SignInLoading && state.isGoogleLoading
                             ? LoadingAnimationWidget.fourRotatingDots(
                                 color: appThemeColor2, size: 50)

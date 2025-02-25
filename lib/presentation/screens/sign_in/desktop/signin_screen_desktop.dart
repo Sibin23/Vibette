@@ -165,9 +165,7 @@ class SigninScreenDesktop extends StatelessWidget {
                             h20,
                             InkWell(
                               onTap: () {
-                                context
-                                    .read<SignInBloc>()
-                                    .add(OnSignInWithGoogleEvent());
+                                
                               },
                               child: state is SignInLoading &&
                                       state.isGoogleLoading
