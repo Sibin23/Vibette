@@ -8,7 +8,7 @@ class MessagesScreen extends StatelessWidget {
     return Scaffold(
      
       body: ListView(
-        children: [
+        children: const [
           Text('Messages')
         ],
       ),

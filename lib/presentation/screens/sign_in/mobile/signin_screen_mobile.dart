@@ -148,11 +148,7 @@ class SignInScreenMobile extends StatelessWidget {
                       ),
                       h20,
                       InkWell(
-                        onTap: () {
-                          context
-                              .read<SignInBloc>()
-                              .add(OnSignInWithGoogleEvent());
-                        },
+                        onTap: () {},
                         child: state is SignInLoading && state.isGoogleLoading
                             ? LoadingAnimationWidget.fourRotatingDots(
                                 color: appThemeColor2, size: 50)
@@ -194,4 +190,28 @@ class SignInScreenMobile extends StatelessWidget {
       ),
     );
   }
+
+//   Future<UserCredential?> siginWithGoogle() async {
+//     try {
+//       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+//       GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+//       AuthCredential credential = GoogleAuthProvider.credential(
+//           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+//       UserCredential userCredential =
+//           await FirebaseAuth.instance.signInWithCredential(credential);
+//       if (kDebugMode) {
+//         print(userCredential.user?.displayName);
+//       }
+//       return userCredential;
+//     } catch (e) {
+//       return null;
+//     }
+//   }
+//
+// //fire base logout
+//   final GoogleSignIn _googleSignIn = GoogleSignIn();
+//   Future<void> googleSignOut() async {
+//     await _googleSignIn.signOut();
+//     log("User signed out");
+//   }
 }

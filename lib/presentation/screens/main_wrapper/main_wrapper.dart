@@ -30,8 +30,8 @@ class _MainWrapperState extends State<MainWrapper> {
     final size =  MediaQuery.of(context).size;
     return Scaffold(
       body: AppLayout(
-          mobileLayout: MainWrapperMobile(),
-          tabletLayout: MainWrapperTablet(),
+          mobileLayout: const MainWrapperMobile(),
+          tabletLayout: const MainWrapperTablet(),
           desktopLayout: MainWrapperDesktop(size: size)),
     );
   }

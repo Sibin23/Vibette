@@ -175,7 +175,7 @@ class HomeScreenLoading extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      Container(
+                                      SizedBox(
                                         width: 30,
                                         height: 30,
                                         child: Image.asset(
@@ -193,7 +193,7 @@ class HomeScreenLoading extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: white,
                                           borderRadius:
@@ -203,7 +203,7 @@ class HomeScreenLoading extends StatelessWidget {
                                         width: size.width,
                                       ),
                                       Container(
-                                        margin: EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: white,
                                           borderRadius:

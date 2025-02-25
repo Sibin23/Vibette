@@ -116,7 +116,7 @@ class _ExploreScreenContentState extends State<_ExploreScreenContent> {
                           if (_isSearchActive && state is SearchSuccess) {
                             // Show SearchScreen if active
                             return SearchScreen(
-                              searchController: _searchController!,
+                              searchController: _searchController,
                               isSearchActive: _isSearchActive,
                               onSearchScreenClosed: () {
                                 setState(() {

@@ -38,7 +38,7 @@ class _HomeScreenDesktopState extends State<HomeScreenDesktop> {
           : ListView(
               children: [
                 // Story Section
-                StoryListView(),
+                const StoryListView(),
 
                 h20,
                 // User Posts

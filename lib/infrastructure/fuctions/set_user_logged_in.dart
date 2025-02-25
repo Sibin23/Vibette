@@ -1,41 +1,13 @@
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:vibette/application/core/constants/constants.dart';
-
-// String currentuserId='';
-
-// Future<void> setUserLoggedin(
-//     {required String token,
-//     required String userid,
-//     required String userrole,
-//     required String userEmail,
-//     required String userName,
-//     required String userprofile}) async {
-//   final sharedprefs = await SharedPreferences.getInstance();
-//   await sharedprefs.setBool(authKey, true);
-//   await sharedprefs.setString(tokenKey, token);
-//   await sharedprefs.setString(userIdKey, userid);
-//   await sharedprefs.setString(userRolekey, userrole);
-//   await sharedprefs.setString(userEmailkey, userEmail);
-//   await sharedprefs.setString(userNamekey, userName);
-//   await sharedprefs.setString(userProfilePickey, userprofile);
-// }
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/constants.dart';
-import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 
-
-
-String currentuserId='';
+String currentuserId = '';
 
 Future<void> setUserLoggedin(
     {required String token,
@@ -68,7 +40,7 @@ Future<String?> getUserId() async {
 
   print('shared preference gerUserId');
 
-   currentuserId = userId.toString();
+  currentuserId = userId.toString();
   print('currentuserId   $currentuserId');
   return userId;
 }
@@ -108,11 +80,6 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 Future<void> googleSignOut() async {
   await _googleSignIn.signOut();
   log("User signed out");
-}
-
-String formatDate(DateTime? date) {
-  if (date == null) return 'Unknown date';
-  return DateFormat('dd MMMM yyyy').format(date.toLocal());
 }
 
 // List<Post> parsePosts(String responseBody) {

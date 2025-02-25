@@ -16,5 +16,5 @@ import 'package:flutter/material.dart';
     ),
     scaffoldBackgroundColor: const Color(0xff78ab8a),
     primaryColor: const Color(0xfffffffF), // Consider using Colors.white here
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff06d755)).copyWith(background: const Color(0xff78ab8a)),
+    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff06d755)).copyWith(surface: const Color(0xff78ab8a)),
   );

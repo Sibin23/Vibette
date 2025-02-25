@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
-import 'package:vibette/domain/models/user/user_model.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
 import 'package:vibette/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:vibette/presentation/screens/widgets/apptheme_button.dart';
