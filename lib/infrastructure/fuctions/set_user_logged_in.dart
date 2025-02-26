@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/constants.dart';
@@ -58,29 +58,29 @@ Future<void> clearUserSession() async {
 }
 
 //google login
-Future<UserCredential?> siginWithGoogle() async {
-  try {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    if (kDebugMode) {
-      print(userCredential.user?.displayName);
-    }
-    return userCredential;
-  } catch (e) {
-    return null;
-  }
-}
+// Future<UserCredential?> siginWithGoogle() async {
+//   try {
+//     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+//     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+//     AuthCredential credential = GoogleAuthProvider.credential(
+//         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+//     UserCredential userCredential =
+//         await FirebaseAuth.instance.signInWithCredential(credential);
+//     if (kDebugMode) {
+//       print(userCredential.user?.displayName);
+//     }
+//     return userCredential;
+//   } catch (e) {
+//     return null;
+//   }
+// }
 
-//fire base logout
-final GoogleSignIn _googleSignIn = GoogleSignIn();
-Future<void> googleSignOut() async {
-  await _googleSignIn.signOut();
-  log("User signed out");
-}
+// //fire base logout
+// final GoogleSignIn _googleSignIn = GoogleSignIn();
+// Future<void> googleSignOut() async {
+//   await _googleSignIn.signOut();
+//   log("User signed out");
+// }
 
 // List<Post> parsePosts(String responseBody) {
 //   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();

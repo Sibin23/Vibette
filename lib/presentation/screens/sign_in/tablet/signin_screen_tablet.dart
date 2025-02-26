@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:vibette/application/core/constants/colors.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/application/core/constants/router_constants.dart';
 import 'package:vibette/presentation/bloc/cubit/password_cubit/password_visibility_cubit.dart';
@@ -138,29 +136,29 @@ class SigninScreenTablet extends StatelessWidget {
                         ),
                       ),
                       h20,
-                      Text(
-                        textAlign: TextAlign.center,
-                        'Or Continue with',
-                        style: appTheme.textTheme.bodyLarge,
-                      ),
-                      h20,
-                      InkWell(
-                        onTap: () {},
-                        child: state is SignInLoading && state.isGoogleLoading
-                            ? LoadingAnimationWidget.fourRotatingDots(
-                                color: appThemeColor2, size: 50)
-                            : Container(
-                                width: 50,
-                                height: 50,
-                                decoration:
-                                    const BoxDecoration(shape: BoxShape.circle),
-                                child: Image.asset(
-                                  googleLogo,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                      ),
-                      h20,
+                      // Text(
+                      //   textAlign: TextAlign.center,
+                      //   'Or Continue with',
+                      //   style: appTheme.textTheme.bodyLarge,
+                      // ),
+                      // h20,
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: state is SignInLoading && state.isGoogleLoading
+                      //       ? LoadingAnimationWidget.fourRotatingDots(
+                      //           color: appThemeColor2, size: 50)
+                      //       : Container(
+                      //           width: 50,
+                      //           height: 50,
+                      //           decoration:
+                      //               const BoxDecoration(shape: BoxShape.circle),
+                      //           child: Image.asset(
+                      //             googleLogo,
+                      //             fit: BoxFit.cover,
+                      //           ),
+                      //         ),
+                      // ),
+                      // h20,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
