@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,26 +31,18 @@ class SignInScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    navigateToHome() {
-      context.goNamed(RouterConstants.basePage);
-    }
-
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
-          final Completer<void> completer =
-              Completer<void>(); // Create a Completer
-
-          CustomSnackBar.show(context, 'Signed In Successfully', green,
-              duration: const Duration(seconds: 2), onPressed: () {
-            completer.complete();
-          });
-
-          completer.future.then((_) {
-            navigateToHome();
-          });
+          CustomSnackBar.show(
+            context,
+            'Sign in successful!',
+            green,
+            duration: const Duration(seconds: 1),
+            onPressed: () => context.goNamed(RouterConstants.basePage),
+          );
         } else if (state is SignInFailure) {
-          CustomSnackBar.show(context, state.message, orange);
+          CustomSnackBar.show(context, state.message, red);
         }
       },
       child: BlocBuilder<SignInBloc, SignInState>(
@@ -124,13 +115,7 @@ class SignInScreenMobile extends StatelessWidget {
                                   ? LoadingButton(size: size)
                                   : AppThemeButton(
                                       voidCallback: () {
-                                        if (formKey.currentState!.validate()) {
-                                          context.read<SignInBloc>().add(
-                                              OnSignInButtonClickEvent(
-                                                  email: emailController.text,
-                                                  password:
-                                                      passwordController.text));
-                                        }
+                                        _validate(context);
                                       },
                                       buttonText: 'Sign In',
                                       size: size),
@@ -166,27 +151,11 @@ class SignInScreenMobile extends StatelessWidget {
     );
   }
 
-//   Future<UserCredential?> siginWithGoogle() async {
-//     try {
-//       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//       GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-//       AuthCredential credential = GoogleAuthProvider.credential(
-//           accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-//       UserCredential userCredential =
-//           await FirebaseAuth.instance.signInWithCredential(credential);
-//       if (kDebugMode) {
-//         print(userCredential.user?.displayName);
-//       }
-//       return userCredential;
-//     } catch (e) {
-//       return null;
-//     }
-//   }
-//
-// //fire base logout
-//   final GoogleSignIn _googleSignIn = GoogleSignIn();
-//   Future<void> googleSignOut() async {
-//     await _googleSignIn.signOut();
-//     log("User signed out");
-//   }
+  void _validate(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      context.read<SignInBloc>().add(OnSignInButtonClickEvent(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()));
+    }
+  }
 }

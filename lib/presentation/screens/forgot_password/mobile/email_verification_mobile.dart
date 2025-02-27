@@ -37,9 +37,8 @@ class _EmailVerificationMobileState extends State<EmailVerificationMobile> {
             'Email Verfied Successfylly !',
             green,
             duration: const Duration(seconds: 1),
-            onPressed: () {
-              context.push(RouterConstants.resetPassword);
-            },
+            onPressed: () => context
+                .pushNamed('${RouterConstants.resetPassword}/${widget.email}'),
           );
         } else if (state is EmailVerificationFailure) {
           CustomSnackBar.show(context, 'Email Verification Failed', red,

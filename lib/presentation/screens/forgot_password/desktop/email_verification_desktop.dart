@@ -93,7 +93,11 @@ class _EmailVerificationDesktopState extends State<EmailVerificationDesktop> {
                       return state is EmailVerificationLoading
                           ? CustomLoadingButton(size: widget.size)
                           : CustomOutlineButton(
-                              size: widget.size, onTap: () {}, text: 'Verify');
+                              size: widget.size,
+                              onTap: () {
+                                validate();
+                              },
+                              text: 'Verify');
                     },
                   ),
                   h20,
@@ -109,9 +113,7 @@ class _EmailVerificationDesktopState extends State<EmailVerificationDesktop> {
                           onPressed: () {
                             context.read<EmailVerificationBloc>().add(
                                 OnResedOtpButtonClickedEvent(widget.email));
-                            context
-                                .read<TimerCubit>()
-                                .startTimer(); // Start timer for 30 seconds
+                            context.read<TimerCubit>().startTimer();
                           },
                           child: const Text(
                             'Resend OTP',

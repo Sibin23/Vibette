@@ -9,6 +9,7 @@ import 'package:vibette/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
 import 'package:vibette/presentation/screens/sign_in/widgets/vibette_logo.dart';
 import 'package:vibette/presentation/screens/widgets/custom_loading_button.dart';
 import 'package:vibette/presentation/screens/widgets/custom_outline_button.dart';
+import 'package:vibette/presentation/screens/widgets/custom_snackbar.dart';
 import 'package:vibette/presentation/screens/widgets/textfield_authentication.dart';
 import 'package:vibette/presentation/screens/widgets/validators.dart';
 
@@ -29,28 +30,18 @@ class SigninScreenDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    navigateToHome() {
-      context.goNamed(RouterConstants.basePage);
-    }
-
     return BlocListener<SignInBloc, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(
-                const SnackBar(
-                  content: Text('Sign in successful!'),
-                  duration: Duration(seconds: 2),
-                ),
-              )
-              .closed
-              .then((_) {
-            navigateToHome();
-          });
-        } else if (state is SignInFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+          CustomSnackBar.show(
+            context,
+            'Sign in successful!',
+            green,
+            duration: const Duration(seconds: 1),
+            onPressed: () => context.goNamed(RouterConstants.basePage),
           );
+        } else if (state is SignInFailure) {
+          CustomSnackBar.show(context, state.message, red);
         }
       },
       child: BlocBuilder<SignInBloc, SignInState>(
@@ -132,15 +123,7 @@ class SigninScreenDesktop extends StatelessWidget {
                                       size: size,
                                       text: 'Sign In',
                                       onTap: () {
-                                        if (formKey.currentState!.validate()) {
-                                          context.read<SignInBloc>().add(
-                                              OnSignInButtonClickEvent(
-                                                  email: emailController.text
-                                                      .trim(),
-                                                  password: passwordController
-                                                      .text
-                                                      .trim()));
-                                        }
+                                        _validate(context);
                                       }),
                             ],
                           ),
@@ -172,5 +155,13 @@ class SigninScreenDesktop extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void _validate(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      context.read<SignInBloc>().add(OnSignInButtonClickEvent(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()));
+    }
   }
 }

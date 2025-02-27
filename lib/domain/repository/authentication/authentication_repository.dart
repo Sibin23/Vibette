@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/urls.dart';
 import 'package:vibette/domain/models/user/user_model.dart';
 import 'package:vibette/infrastructure/fuctions/set_user_logged_in.dart';
+import 'package:vibette/infrastructure/sharedpreferences/sharedpreferences.dart';
 
 class AuthenticationRepository {
   static var client = http.Client();
@@ -94,35 +95,6 @@ class AuthenticationRepository {
       return null;
     }
   }
-  // static Future<String> verifyOtp(
-  //     {required String email, required String otp}) async {
-  //   var client = http.Client();
-  //   try {
-  //     final user = {'email': email, 'otp': otp};
-
-  //     var response = await client.post(
-  //       Uri.parse('${ApiUrl.baseUrl}${ApiUrl.signUp}'),
-  //       body: user,
-  //     );
-  //     debugPrint('statuscode:${response.statusCode}');
-  //     debugPrint(response.body);
-  //     final responsebody = jsonDecode(response.body);
-  //     if (response.statusCode == 200) {
-  //       return 'successful';
-  //     } else if (responsebody['message'] ==
-  //         'Invalid verification code or OTP expired') {
-  //       return 'Invalid verification code or OTP expired';
-  //     } else if (response.statusCode == 500) {
-  //       return 'Internal server error';
-  //     } else {
-  //       return 'failed';
-  //     }
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //     log(e.toString() as num);
-  //     return 'failed';
-  //   }
-  // }
 
   //signin
   static Future<Response?> userLogin(
@@ -134,14 +106,17 @@ class AuthenticationRepository {
           .post(Uri.parse('${ApiUrl.baseUrl}${ApiUrl.login}'), body: loginuser);
       debugPrint('statuscode:${response.statusCode}');
       debugPrint(response.body);
-      final responsebody = jsonDecode(response.body);
-      // print(responsebody['message']);
+      final responseBody = jsonDecode(response.body);
+      print(responseBody['message']);
       if (response.statusCode == 200) {
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        preferences.setBool('LOGIN', true);
-        preferences.setString('USER_TOKEN', responsebody['user']['token']);
-        preferences.setString('USER_ID', responsebody['user']['_id']);
-        preferences.setString('USER_NAME', responsebody['user']['userName']);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool(SharedPreferenceKeys.isLoggedIn, true);
+        await prefs.setString(
+            SharedPreferenceKeys.tokenKey, responseBody['user']['token']);
+        await prefs.setString(
+            SharedPreferenceKeys.userIdKey, responseBody['user']['_id']);
+        await prefs.setString(
+            SharedPreferenceKeys.userNamekey, responseBody['user']['userName']);
         return response;
       } else {
         return response;
@@ -150,6 +125,8 @@ class AuthenticationRepository {
       debugPrint(e.toString());
       log(e.toString() as num);
       return null;
+    } finally {
+      client.close();
     }
   }
 
