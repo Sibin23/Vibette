@@ -153,25 +153,7 @@ class SignUpScreenDesktop extends StatelessWidget {
                                 size: size,
                                 text: 'Sign Up',
                                 onTap: () {
-                                  if (passwordController.text.trim() ==
-                                      confirmPasswordController.text.trim()) {
-                                    if (formkey.currentState!.validate()) {
-                                      context
-                                          .read<SignUpBloc>()
-                                          .add(SignUpButtonClickEvent(
-                                            name: nameController.text.trim(),
-                                            email: emailController.text.trim(),
-                                            phoneNumber:
-                                                phoneController.text.trim(),
-                                            password:
-                                                passwordController.text.trim(),
-                                          ));
-                                    }
-                                  } else {
-                                    CustomSnackBar.show(context,
-                                        'Password doesn\'t match', orange,
-                                        duration: const Duration(seconds: 2));
-                                  }
+                                  _validate(context);
                                 }),
                         h30,
                         Row(
@@ -199,5 +181,22 @@ class SignUpScreenDesktop extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _validate(BuildContext context) {
+    if (passwordController.text.trim() ==
+        confirmPasswordController.text.trim()) {
+      if (formkey.currentState!.validate()) {
+        context.read<SignUpBloc>().add(SignUpButtonClickEvent(
+              name: nameController.text.trim(),
+              email: emailController.text.trim(),
+              phoneNumber: phoneController.text.trim(),
+              password: passwordController.text.trim(),
+            ));
+      }
+    } else {
+      CustomSnackBar.show(context, 'Password doesn\'t match', orange,
+          duration: const Duration(seconds: 2));
+    }
   }
 }

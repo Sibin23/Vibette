@@ -109,6 +109,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: black,
       ),
       appBarTheme: AppBarTheme(
+        surfaceTintColor: black,
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle:
             GoogleFonts.diphylleia(fontSize: 24, fontWeight: FontWeight.w400),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:vibette/application/core/constants/constants.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/home_screen_loading.dart';
 import 'package:vibette/presentation/screens/home_screen/widget/story_list_desktop.dart';
@@ -12,7 +13,8 @@ class HomeScreenDesktop extends StatefulWidget {
   State<HomeScreenDesktop> createState() => _HomeScreenDesktopState();
 }
 
-class _HomeScreenDesktopState extends State<HomeScreenDesktop> {
+class _HomeScreenDesktopState extends State<HomeScreenDesktop>
+    with AutomaticKeepAliveClientMixin {
   bool isLoading = true;
 
   @override
@@ -30,8 +32,9 @@ class _HomeScreenDesktopState extends State<HomeScreenDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final size = MediaQuery.of(context).size;
- 
+
     return Center(
       child: isLoading
           ? HomeScreenLoading(size: size)
@@ -67,4 +70,7 @@ class _HomeScreenDesktopState extends State<HomeScreenDesktop> {
             ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

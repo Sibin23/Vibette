@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibette/application/core/constants/urls.dart';
 import 'package:vibette/domain/models/user/user_model.dart';
 import 'package:vibette/infrastructure/fuctions/set_user_logged_in.dart';
-import 'package:vibette/infrastructure/sharedpreferences/sharedpreferences.dart';
 
 class AuthenticationRepository {
   static var client = http.Client();
@@ -102,21 +101,21 @@ class AuthenticationRepository {
     var client = http.Client();
     try {
       final loginuser = {'email': email, 'password': password};
-      var response = await client
-          .post(Uri.parse('${ApiUrl.baseUrl}${ApiUrl.login}'), body: loginuser);
+      print('user login is $loginuser');
+      var response = await client.post(
+        Uri.parse(ApiUrl.baseUrl + ApiUrl.login),
+        body: jsonEncode(loginuser),
+      );
       debugPrint('statuscode:${response.statusCode}');
       debugPrint(response.body);
-      final responseBody = jsonDecode(response.body);
-      print(responseBody['message']);
+      final responsebody = jsonDecode(response.body);
+      // print(responsebody['message']);
       if (response.statusCode == 200) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool(SharedPreferenceKeys.isLoggedIn, true);
-        await prefs.setString(
-            SharedPreferenceKeys.tokenKey, responseBody['user']['token']);
-        await prefs.setString(
-            SharedPreferenceKeys.userIdKey, responseBody['user']['_id']);
-        await prefs.setString(
-            SharedPreferenceKeys.userNamekey, responseBody['user']['userName']);
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool('LOGIN', true);
+        preferences.setString('USER_TOKEN', responsebody['user']['token']);
+        preferences.setString('USER_ID', responsebody['user']['_id']);
+        preferences.setString('USER_NAME', responsebody['user']['userName']);
         return response;
       } else {
         return response;
@@ -162,7 +161,7 @@ class AuthenticationRepository {
       Response? response = await client.get(
         Uri.parse("${ApiUrl.baseUrl + ApiUrl.forgotPassword}$email"),
       );
-      debugPrint("{Apiurl.baseUrl + Apiurl.forgotPassword}$email");
+      debugPrint('${ApiUrl.baseUrl + ApiUrl.forgotPassword}$email');
 
       if (kDebugMode) {
         print(response.body);
